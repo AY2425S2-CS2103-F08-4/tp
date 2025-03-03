@@ -366,8 +366,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-*{More to be added}*
+4.  Data should not be lost in the event of a crash or unexpected shutdown.
+5.  Should be easily testable to ensure that new updates or features do not negatively impact existing functionality.
+6.  Should function without requiring an installer.
+7.  Should only use third-party libraries or services that are free, open-source, have permissive license terms, and do not require installation by the user.
+8.  Should display optimally on screen resolutions 1920x1080 and higher with screen scales 100% and 125%, and remain functional on 1280x720 and higher with up to 150% screen scaling.
+9.  The main application (JAR/ZIP file) should not exceed 100MB.
 
 ### Glossary
 
