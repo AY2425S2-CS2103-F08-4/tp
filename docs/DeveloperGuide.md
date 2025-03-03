@@ -334,30 +334,94 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `TutorConnect` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `TutorConnect` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Search for contacts by some identifiable feature**
 
 **MSS**
+1. User enters a valid `filter` command with at least one column and value.
+2. `TutorConnect` filters contacts based on the specified criteria.
+3. `TutorConnect` displays the matching results along with the message: `"n results found."`
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-
-    Use case ends.
+   Use case ends.
 
 **Extensions**
+* 1a. User enters a `filter` command with a duplicate column.
+    * 1a1. `TutorConnect` displays the error message: `"Duplicate column: <col>."`
 
-* 2a. The list is empty.
+      Use case resumes at step 1.
 
-  Use case ends.
+* 1b. User enters a `filter` command with an unrecognized column.
+    * 1b1. `TutorConnect` displays the error message: `"Unrecognized column: '<unknown>'."`
 
-* 3a. The given index is invalid.
+      Use case resumes at step 1.
 
-    * 3a1. AddressBook shows an error message.
+* 1c. User enters a `filter` command with an invalid operator.
+    * 1c1. `TutorConnect` displays the error message: `"Unrecognized operator: '<unknown>'."`
+
+      Use case resumes at step 1.
+
+* 1d. User enters a `filter` command where a column has no values specified.
+    * 1d1. `TutorConnect` displays the error message: `"No values specified for column '<col>'."`
+
+      Use case resumes at step 1.
+
+* 1e. User enters a `filter` command without specifying any column.
+    * 1e1. `TutorConnect` displays the error message: `"Specify at least one column and value."`
+
+      Use case resumes at step 1.
+
+* 1f. User enters a `filter` command with multiple operators in the same column.
+    * 1f1. `TutorConnect` applies only the first operator and treats the next ones as values.
 
       Use case resumes at step 2.
+
+**List all contacts**
+
+**MSS**
+1. User enters the `list` command.
+2. `TutorConnect` displays a list of all contacts.
+
+   Use case ends.
+
+**Extensions**
+* 2a. No contacts exist in the system.
+    * 2a1. `TutorConnect` displays: `"No contacts found. Add a contact to get started."`
+
+      Use case ends.
+
+**Help**
+
+**MSS**
+1. User enters the `help` command.
+2. `TutorConnect` displays a general help page listing all features.
+
+   Use case ends.
+
+**Extensions**
+* 1a. User enters `help <feature>` (e.g., `help todo`)
+    * 1a1. `TutorConnect` displays detailed information about the requested feature.
+
+      Use case ends.
+
+* 1b. User enters `help <invalid feature>`
+    * 1b1. `TutorConnect` displays the error message: `"Feature 'unknown' not recognized."`
+
+      Use case resumes at step 2.
+
+**Exit the program**
+
+**MSS**
+1. User enters the `exit` command.
+2. `TutorConnect` terminates.
+
+   Use case ends.
+
+**Extensions**
+* 1a. User enters an alias for `exit` (e.g., `bye`, `quit`, `kill`).
+    * 1a1. `TutorConnect` recognizes the alias and terminates.
+
+      Use case ends.
 
 *{More to be added}*
 
