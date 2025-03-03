@@ -334,32 +334,140 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `TutorConnect` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `TutorConnect (TC)` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case 1: Create a New Todo**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User provides input to create a new todo task.
+1. TC validates the input.
+1. TC creates the task and confirms the creation.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. User provides an empty task name.
+  
+  * 2a1. TC displays an error message: "Task name cannot be empty."
 
-  Use case ends.
+    Use case ends.
 
-* 3a. The given index is invalid.
+* 2b. A task with the same name already exists.
 
-    * 3a1. AddressBook shows an error message.
+  * 2b1. TC displays an error message: "Task <name> already exists."
+  
+    Use case ends.
 
-      Use case resumes at step 2.
+**Use case 2: Add Contact to Existing Task**
 
-*{More to be added}*
+**MSS**
+
+1. User provides input to associate a contact with a task.
+2. TC validates the input.
+3. TC associates the task with the contact and confirms the update.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. User provides an empty task name.
+  
+  * 2a1. TC displays an error message: "Task name cannot be empty."
+
+    Use case ends.
+
+* 2b. The specified task does not exist.
+
+  * 2b1. TC displays an error message: "Task <name> not found."
+  
+    Use case ends.
+
+* 2c. The specified contact does not exist.
+
+  * 2c1. TC displays an error message: "Contact <contact_id> not found."
+  
+    Use case ends.
+
+* 2d. The task is already assigned to the contact.
+  
+  * 2d1. TC displays an error message: "Task <name> already exists for <contact_id>."
+  
+    Use case ends.
+
+**Use case 3: Remove Contact from Existing Task**
+
+**MSS**
+
+1. User provides input to remove a contact from a task.
+2. TC validates the input.
+3. TC removes the association and confirms the update.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. User provides an empty task name.
+  
+  * 2a1. TC displays an error message: "Task name cannot be empty."
+
+    Use case ends.
+
+* 2b. The specified task does not exist.
+
+  * 2b1. TC displays an error message: "Task <name> not found."
+  
+    Use case ends.
+
+* 2c. The specified contact does not exist.
+
+  * 2c1. TC displays an error message: "Contact <contact_id> not found."
+  
+    Use case ends.
+
+* 2d. The task is not assigned to the contact.
+  
+  * 2d1. TC displays an error message: "Task <name> is not assigned to <contact_id>."
+  
+    Use case ends.
+
+**Use case 4: Mark a Todo as Done**
+
+**MSS**
+
+1. User provides input to mark a todo as done.
+2. TC validates the input.
+3. TC marks the task as done and confirms the update.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The specified task does not exist.
+
+  * 2a1. TC displays an error message: "Task <name> not found."
+  
+    Use case ends.
+
+**Use case 5: Unmark a Todo as Done**
+
+**MSS**
+
+1. User provides input to unmark a todo as done.
+2. TC validates the input.
+3. TC unmarks the task as done and confirms the update.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The specified task does not exist.
+
+  * 2a1. TC displays an error message: "Task <name> not found."
+  
+    Use case ends.
+
 
 ### Non-Functional Requirements
 
