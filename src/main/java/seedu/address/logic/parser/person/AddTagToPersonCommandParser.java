@@ -2,7 +2,7 @@ package seedu.address.logic.parser.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG_LONG;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.person.AddTagToPersonCommand;
@@ -20,8 +20,8 @@ public class AddTagToPersonCommandParser implements Parser<AddTagToPersonCommand
     @Override
     public AddTagToPersonCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PERSON_TAG);
-        if (!argMultimap.arePrefixesPresent(PREFIX_PERSON_TAG)
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PERSON_TAG_LONG);
+        if (!argMultimap.arePrefixesPresent(PREFIX_PERSON_TAG_LONG)
                 || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddTagToPersonCommand.MESSAGE_USAGE));
@@ -33,7 +33,7 @@ public class AddTagToPersonCommandParser implements Parser<AddTagToPersonCommand
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddTagToPersonCommand.MESSAGE_USAGE), pe);
         }
-        String stringTag = argMultimap.getValue(PREFIX_PERSON_TAG).get();
+        String stringTag = argMultimap.getValue(PREFIX_PERSON_TAG_LONG).get();
         if (!Tag.isValidTagName(stringTag)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     Tag.MESSAGE_CONSTRAINTS));

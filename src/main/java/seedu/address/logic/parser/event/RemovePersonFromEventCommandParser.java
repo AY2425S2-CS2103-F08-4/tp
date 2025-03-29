@@ -2,7 +2,7 @@ package seedu.address.logic.parser.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_LINKED_PERSON_INDEX;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_PERSON_LONG;
 
 import java.util.List;
 
@@ -22,8 +22,8 @@ public class RemovePersonFromEventCommandParser implements Parser<RemovePersonFr
     @Override
     public RemovePersonFromEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_LINKED_PERSON_INDEX);
-        if (!argMultimap.arePrefixesPresent(PREFIX_LINKED_PERSON_INDEX)
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TODO_LINKED_PERSON_LONG);
+        if (!argMultimap.arePrefixesPresent(PREFIX_TODO_LINKED_PERSON_LONG)
                 || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RemovePersonFromEventCommand.MESSAGE_USAGE));
@@ -37,9 +37,9 @@ public class RemovePersonFromEventCommandParser implements Parser<RemovePersonFr
                     RemovePersonFromEventCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_LINKED_PERSON_INDEX);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_LINKED_PERSON_LONG);
         List<Index> personIndices =
-                ParserUtil.parseIndices(argMultimap.getValue(PREFIX_LINKED_PERSON_INDEX).get());
+                ParserUtil.parseIndices(argMultimap.getValue(PREFIX_TODO_LINKED_PERSON_LONG).get());
 
         if (personIndices.isEmpty()) {
             throw new ParseException(EventMessages.MESSAGE_NOT_REMOVED);

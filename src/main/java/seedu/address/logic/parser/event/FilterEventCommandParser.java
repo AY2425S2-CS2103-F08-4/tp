@@ -3,11 +3,11 @@ package seedu.address.logic.parser.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_NO_COLUMNS;
 import static seedu.address.logic.Messages.MESSAGE_NO_VALUES;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_END_DATETIME;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCATION;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_LINKED_PERSON_INDEX;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_START_DATETIME;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_END_LONG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKED_PERSON_LONG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCATION_LONG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME_LONG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_START_LONG;
 
 import java.util.List;
 
@@ -39,53 +39,53 @@ public class FilterEventCommandParser implements Parser<FilterEventCommand> {
      */
     public FilterEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EVENT_NAME,
-                PREFIX_START_DATETIME, PREFIX_END_DATETIME, PREFIX_EVENT_LOCATION,
-                PREFIX_LINKED_PERSON_INDEX);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EVENT_NAME_LONG,
+            PREFIX_EVENT_START_LONG, PREFIX_EVENT_END_LONG, PREFIX_EVENT_LOCATION_LONG,
+            PREFIX_EVENT_LINKED_PERSON_LONG);
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_NAME, PREFIX_START_DATETIME,
-                PREFIX_END_DATETIME, PREFIX_EVENT_LOCATION, PREFIX_LINKED_PERSON_INDEX);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_NAME_LONG, PREFIX_EVENT_START_LONG,
+            PREFIX_EVENT_END_LONG, PREFIX_EVENT_LOCATION_LONG, PREFIX_EVENT_LINKED_PERSON_LONG);
 
         EventPredicate predicate = new EventPredicate();
 
-        if (argMultimap.getValue(PREFIX_EVENT_NAME).isPresent()) {
+        if (argMultimap.getValue(PREFIX_EVENT_NAME_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_EVENT_NAME).get());
+                ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_EVENT_NAME_LONG).get());
             if (operatorStringPair.second().trim().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_EVENT_NAME));
+                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_EVENT_NAME_LONG));
             }
             predicate.setNamePredicate(new EventNamePredicate(operatorStringPair.first(),
-                    List.of(operatorStringPair.second().split("\\s+"))));
+                List.of(operatorStringPair.second().split("\\s+"))));
         }
-        if (argMultimap.getValue(PREFIX_EVENT_LOCATION).isPresent()) {
+        if (argMultimap.getValue(PREFIX_EVENT_LOCATION_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_EVENT_LOCATION).get());
+                ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_EVENT_LOCATION_LONG).get());
             if (operatorStringPair.second().trim().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_EVENT_LOCATION));
+                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_EVENT_LOCATION_LONG));
             }
             predicate.setLocationPredicate(new EventLocationPredicate(operatorStringPair.first(),
-                    List.of(operatorStringPair.second().split("\\s+"))));
+                List.of(operatorStringPair.second().split("\\s+"))));
         }
-        if (argMultimap.getValue(PREFIX_START_DATETIME).isPresent()) {
+        if (argMultimap.getValue(PREFIX_EVENT_START_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_START_DATETIME).get());
+                ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_EVENT_START_LONG).get());
             predicate.setStartTimePredicate(new EventStartTimePredicate(operatorStringPair.first(),
-                    ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
+                ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
         }
-        if (argMultimap.getValue(PREFIX_END_DATETIME).isPresent()) {
+        if (argMultimap.getValue(PREFIX_EVENT_END_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_END_DATETIME).get());
+                ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_EVENT_END_LONG).get());
             predicate.setEndTimePredicate(new EventEndTimePredicate(operatorStringPair.first(),
-                    ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
+                ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
         }
-        if (argMultimap.getValue(PREFIX_LINKED_PERSON_INDEX).isPresent()) {
+        if (argMultimap.getValue(PREFIX_EVENT_LINKED_PERSON_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair = ParserUtil.parseOperatorAndString(
-                    argMultimap.getValue(PREFIX_LINKED_PERSON_INDEX).get());
+                argMultimap.getValue(PREFIX_EVENT_LINKED_PERSON_LONG).get());
             predicate.setPersonOperator(operatorStringPair.first());
             List<Index> personIndices = ParserUtil.parseIndices(operatorStringPair.second());
             if (personIndices.isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES,
-                        PREFIX_LINKED_PERSON_INDEX));
+                    PREFIX_EVENT_LINKED_PERSON_LONG));
             }
             predicate.setPersonIndices(ParserUtil.parseIndices(operatorStringPair.second()));
         }

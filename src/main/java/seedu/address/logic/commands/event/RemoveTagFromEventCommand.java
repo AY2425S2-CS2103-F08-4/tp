@@ -2,7 +2,7 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_TAG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_TAG_LONG;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,9 +24,9 @@ public class RemoveTagFromEventCommand extends EditCommand<Event> {
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Removes a tag from a specified event.\n"
             + "Parameters: INDEX "
-            + PREFIX_EVENT_TAG + " <tag>\n"
+            + PREFIX_EVENT_TAG_LONG + " <tag>\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_EVENT_TAG + " TA ";
+            + PREFIX_EVENT_TAG_LONG + " TA ";
 
     public static final String MESSAGE_REMOVE_TAG_SUCCESS = "Removed tag from event: %1$s";
     public static final String MESSAGE_NO_TAG_PRESENT = "The tag is already removed from specified event.";

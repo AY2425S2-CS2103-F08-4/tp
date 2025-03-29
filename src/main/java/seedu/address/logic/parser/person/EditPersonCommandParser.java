@@ -2,13 +2,13 @@ package seedu.address.logic.parser.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_COURSE;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_EMAIL;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_GROUP;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_ID;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_NAME;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_PHONE;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_COURSE_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_EMAIL_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_GROUP_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_ID_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_NAME_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_PHONE_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG_LONG;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -38,8 +38,9 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
      */
     public EditPersonCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PERSON_ID, PREFIX_PERSON_NAME,
-                PREFIX_PERSON_PHONE, PREFIX_PERSON_EMAIL, PREFIX_PERSON_TAG, PREFIX_PERSON_COURSE, PREFIX_PERSON_GROUP);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PERSON_ID_LONG, PREFIX_PERSON_NAME_LONG,
+            PREFIX_PERSON_PHONE_LONG, PREFIX_PERSON_EMAIL_LONG, PREFIX_PERSON_TAG_LONG, PREFIX_PERSON_COURSE_LONG,
+            PREFIX_PERSON_GROUP_LONG);
 
         Index index;
 
@@ -47,34 +48,38 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditPersonCommand.MESSAGE_USAGE), pe);
+                EditPersonCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_PERSON_ID, PREFIX_PERSON_NAME, PREFIX_PERSON_PHONE,
-                PREFIX_PERSON_EMAIL, PREFIX_PERSON_COURSE, PREFIX_PERSON_GROUP);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_PERSON_ID_LONG, PREFIX_PERSON_NAME_LONG,
+            PREFIX_PERSON_PHONE_LONG, PREFIX_PERSON_EMAIL_LONG, PREFIX_PERSON_COURSE_LONG, PREFIX_PERSON_GROUP_LONG);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
-        if (argMultimap.getValue(PREFIX_PERSON_ID).isPresent()) {
-            editPersonDescriptor.setId(PersonParserUtil.parseId(argMultimap.getValue(PREFIX_PERSON_ID).get()));
+        if (argMultimap.getValue(PREFIX_PERSON_ID_LONG).isPresent()) {
+            editPersonDescriptor.setId(PersonParserUtil.parseId(argMultimap.getValue(PREFIX_PERSON_ID_LONG).get()));
         }
-        if (argMultimap.getValue(PREFIX_PERSON_NAME).isPresent()) {
-            editPersonDescriptor.setName(PersonParserUtil.parseName(argMultimap.getValue(PREFIX_PERSON_NAME).get()));
+        if (argMultimap.getValue(PREFIX_PERSON_NAME_LONG).isPresent()) {
+            editPersonDescriptor.setName(
+                PersonParserUtil.parseName(argMultimap.getValue(PREFIX_PERSON_NAME_LONG).get()));
         }
-        if (argMultimap.getValue(PREFIX_PERSON_PHONE).isPresent()) {
-            editPersonDescriptor.setPhone(PersonParserUtil.parsePhone(argMultimap.getValue(PREFIX_PERSON_PHONE).get()));
+        if (argMultimap.getValue(PREFIX_PERSON_PHONE_LONG).isPresent()) {
+            editPersonDescriptor.setPhone(
+                PersonParserUtil.parsePhone(argMultimap.getValue(PREFIX_PERSON_PHONE_LONG).get()));
         }
-        if (argMultimap.getValue(PREFIX_PERSON_EMAIL).isPresent()) {
-            editPersonDescriptor.setEmail(PersonParserUtil.parseEmail(argMultimap.getValue(PREFIX_PERSON_EMAIL).get()));
+        if (argMultimap.getValue(PREFIX_PERSON_EMAIL_LONG).isPresent()) {
+            editPersonDescriptor.setEmail(
+                PersonParserUtil.parseEmail(argMultimap.getValue(PREFIX_PERSON_EMAIL_LONG).get()));
         }
-        if (argMultimap.getValue(PREFIX_PERSON_COURSE).isPresent()) {
+        if (argMultimap.getValue(PREFIX_PERSON_COURSE_LONG).isPresent()) {
             editPersonDescriptor.setCourse(PersonParserUtil
-                    .parseModule(argMultimap.getValue(PREFIX_PERSON_COURSE).get()));
+                    .parseModule(argMultimap.getValue(PREFIX_PERSON_COURSE_LONG).get()));
         }
-        if (argMultimap.getValue(PREFIX_PERSON_GROUP).isPresent()) {
-            editPersonDescriptor.setGroup(PersonParserUtil.parseGroup(argMultimap.getValue(PREFIX_PERSON_GROUP).get()));
+        if (argMultimap.getValue(PREFIX_PERSON_GROUP_LONG).isPresent()) {
+            editPersonDescriptor.setGroup(
+                PersonParserUtil.parseGroup(argMultimap.getValue(PREFIX_PERSON_GROUP_LONG).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_PERSON_TAG)).ifPresent(editPersonDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_PERSON_TAG_LONG)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditPersonCommand.MESSAGE_NOT_EDITED);

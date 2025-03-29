@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
 
 import seedu.address.logic.commands.todo.AddTodoCommand;
 import seedu.address.model.todo.Todo;
@@ -24,9 +24,9 @@ public class TodoUtil {
      * Returns the part of command string for the given {@code todo}'s details.
      */
     public static String getTodoDetails(Todo todo) {
-        String sb = PREFIX_TODO_NAME + todo.getName().name + " "
-                + PREFIX_TODO_DEADLINE + todo.getDeadline().toString() + " "
-                + PREFIX_TODO_LOCATION + todo.getLocation().value + " ";
+        String sb = PREFIX_TODO_NAME_LONG + todo.getName().name + " "
+                + PREFIX_TODO_DEADLINE_LONG + todo.getDeadline().toString() + " "
+                + PREFIX_TODO_LOCATION_LONG + todo.getLocation().value + " ";
         return sb;
     }
 }

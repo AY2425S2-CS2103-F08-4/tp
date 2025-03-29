@@ -1,10 +1,10 @@
 package seedu.address.logic.parser.event;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_END_DATETIME;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCATION;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_START_DATETIME;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_END_LONG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCATION_LONG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME_LONG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_START_LONG;
 
 import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -27,22 +27,22 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
      * @throws ParseException if the user input does not conform the expected format.
      */
     public AddEventCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EVENT_NAME, PREFIX_START_DATETIME,
-                PREFIX_END_DATETIME, PREFIX_EVENT_LOCATION);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EVENT_NAME_LONG, PREFIX_EVENT_START_LONG,
+            PREFIX_EVENT_END_LONG, PREFIX_EVENT_LOCATION_LONG);
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_EVENT_NAME, PREFIX_START_DATETIME,
-                PREFIX_END_DATETIME, PREFIX_EVENT_LOCATION)
+        if (!argMultimap.arePrefixesPresent(PREFIX_EVENT_NAME_LONG, PREFIX_EVENT_START_LONG,
+            PREFIX_EVENT_END_LONG, PREFIX_EVENT_LOCATION_LONG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddEventCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_NAME, PREFIX_START_DATETIME,
-                PREFIX_END_DATETIME, PREFIX_EVENT_LOCATION);
-        EventName name = EventParseUtil.parseName(argMultimap.getValue(PREFIX_EVENT_NAME).get());
-        EventDateTime startTime = EventParseUtil.parseDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get());
-        EventDateTime endTime = EventParseUtil.parseDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get());
-        EventLocation location = EventParseUtil.parseLocation(argMultimap.getValue(PREFIX_EVENT_LOCATION).get());
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_NAME_LONG, PREFIX_EVENT_START_LONG,
+            PREFIX_EVENT_END_LONG, PREFIX_EVENT_LOCATION_LONG);
+        EventName name = EventParseUtil.parseName(argMultimap.getValue(PREFIX_EVENT_NAME_LONG).get());
+        EventDateTime startTime = EventParseUtil.parseDateTime(argMultimap.getValue(PREFIX_EVENT_START_LONG).get());
+        EventDateTime endTime = EventParseUtil.parseDateTime(argMultimap.getValue(PREFIX_EVENT_END_LONG).get());
+        EventLocation location = EventParseUtil.parseLocation(argMultimap.getValue(PREFIX_EVENT_LOCATION_LONG).get());
         if (!startTime.isBefore(endTime)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EventDateTime.MESSAGE_NEGATIVE_DURATION));

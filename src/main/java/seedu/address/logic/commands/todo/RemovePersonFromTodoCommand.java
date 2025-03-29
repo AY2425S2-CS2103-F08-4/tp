@@ -2,7 +2,7 @@ package seedu.address.logic.commands.todo;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_LINKED_PERSON_INDEX;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_PERSON_LONG;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -28,9 +28,9 @@ public class RemovePersonFromTodoCommand extends EditCommand<Todo> {
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
             + ": Remove the association between a todo and some contacts.\n"
             + "Parameters: INDEX "
-            + PREFIX_LINKED_PERSON_INDEX + "[PERSON_INDEX]...\n"
+            + PREFIX_TODO_LINKED_PERSON_LONG + " [PERSON_INDEX]...\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_LINKED_PERSON_INDEX + " 1 3 4";
+            + PREFIX_TODO_LINKED_PERSON_LONG + " 1 3 4";
 
     public static final String MESSAGE_REMOVE_PERSON_SUCCESS = "Removed persons from todo: %1$s";
 

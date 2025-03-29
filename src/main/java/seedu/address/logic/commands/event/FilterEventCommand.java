@@ -2,11 +2,11 @@ package seedu.address.logic.commands.event;
 
 import static seedu.address.logic.EventMessages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_END_DATETIME;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCATION;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_LINKED_PERSON_INDEX;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_START_DATETIME;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_END_LONG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKED_PERSON_LONG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCATION_LONG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME_LONG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_START_LONG;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,9 +40,9 @@ public class FilterEventCommand extends FilterCommand<Event> {
             + ": Filters events based on specified criteria.\n"
             + "Parameters: COL/ [<OP>:] <VALUE(s)> [...]\n"
 
-            + "- COL/ : Column to filter on (" + PREFIX_EVENT_NAME + ", " + PREFIX_START_DATETIME
-            + ", " + PREFIX_END_DATETIME + ", " + PREFIX_EVENT_LOCATION + ", "
-            + PREFIX_LINKED_PERSON_INDEX + ")\n"
+            + "- COL/ : Column to filter on (" + PREFIX_EVENT_NAME_LONG + ", " + PREFIX_EVENT_START_LONG
+            + ", " + PREFIX_EVENT_END_LONG + ", " + PREFIX_EVENT_LOCATION_LONG + ", "
+            + PREFIX_EVENT_LINKED_PERSON_LONG + ")\n"
 
             + "- <OP>: : Operator (and, or, nand, nor) to apply to the column criterion. Defaults"
             + " to 'and' if not specified.\n"
@@ -58,20 +58,20 @@ public class FilterEventCommand extends FilterCommand<Event> {
 
             + "Examples:\n"
 
-            + "1. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_EVENT_NAME + " or: "
+            + "1. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_EVENT_NAME_LONG + " or: "
             + "Exam PRESENTATION\n"
             + "   Find todos whose name contains at least one of the keywords \"exam\" or "
             + "\"presentation.\"\n"
 
-            + "2. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_EVENT_NAME
-            + "CS1010S eXAM " + PREFIX_START_DATETIME + "or: (25-03-13 23:59/25-03-20 23:59) "
+            + "2. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_EVENT_NAME_LONG
+            + "CS1010S eXAM " + PREFIX_EVENT_START_LONG + "or: (25-03-13 23:59/25-03-20 23:59) "
             + "(25-03-27 23:59/-)\n"
             + "   Find todos whose name contains both the keywords \"CS1010S\" and "
             + "\"exam\" and whose start time is between 25-03-13 23:59 and 25-03-20 23:59 "
             + "inclusive or not before 25-03-27 23:59.\n"
 
-            + "3. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_EVENT_LOCATION
-            + "nand: NUS Home " + PREFIX_LINKED_PERSON_INDEX + "1 2 3\n"
+            + "3. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_EVENT_LOCATION_LONG
+            + "nand: NUS Home " + PREFIX_EVENT_LINKED_PERSON_LONG + "1 2 3\n"
             + "   Find todos whose location does not contain the keywords \"NUS\" or "
             + "\"home\" and which are is linked to the people currently at index 1, 2 and 3.\n";
 
@@ -222,4 +222,3 @@ public class FilterEventCommand extends FilterCommand<Event> {
 
     }
 }
-

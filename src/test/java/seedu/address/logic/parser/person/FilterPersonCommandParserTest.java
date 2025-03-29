@@ -4,6 +4,9 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNRECOGNIZED_OPERATOR;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_EMAIL_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_NAME_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG_LONG;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -38,7 +41,7 @@ public class FilterPersonCommandParserTest {
         PersonPredicate expectedPredicate = new PersonPredicate(expectedPredicateMap);
         FilterPersonCommand expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
-        assertParseSuccess(parser, " n/alice", expectedFilterCommand);
+        assertParseSuccess(parser, " " + PREFIX_PERSON_NAME_LONG + " alice", expectedFilterCommand);
 
         // Multiple values with explicit OR operator
         expectedPredicateMap.clear();
@@ -47,7 +50,7 @@ public class FilterPersonCommandParserTest {
         expectedPredicate = new PersonPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
-        assertParseSuccess(parser, " n/or: alice bob", expectedFilterCommand);
+        assertParseSuccess(parser, " " + PREFIX_PERSON_NAME_LONG + " or: alice bob", expectedFilterCommand);
 
         // Multiple columns
         expectedPredicateMap.clear();
@@ -58,9 +61,9 @@ public class FilterPersonCommandParserTest {
         expectedPredicate = new PersonPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
-        assertParseSuccess(parser, " n/alice e/gmail", expectedFilterCommand);
+        assertParseSuccess(parser, " " + PREFIX_PERSON_NAME_LONG + " alice " + PREFIX_PERSON_EMAIL_LONG + " gmail",
+            expectedFilterCommand);
     }
-
     @Test
     public void parse_quotedValues_returnsFilterCommand() {
         // Quote-wrapped values
@@ -70,7 +73,7 @@ public class FilterPersonCommandParserTest {
         PersonPredicate expectedPredicate = new PersonPredicate(expectedPredicateMap);
         FilterPersonCommand expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
-        assertParseSuccess(parser, " n/\"alice pauline\"", expectedFilterCommand);
+        assertParseSuccess(parser, " " + PREFIX_PERSON_NAME_LONG + "\"alice pauline\"", expectedFilterCommand);
 
         // Mix of quoted and unquoted values
         expectedPredicateMap.clear();
@@ -79,7 +82,7 @@ public class FilterPersonCommandParserTest {
         expectedPredicate = new PersonPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
-        assertParseSuccess(parser, " n/or: \"alice pauline\" bob", expectedFilterCommand);
+        assertParseSuccess(parser, " " + PREFIX_PERSON_NAME_LONG + "or: \"alice pauline\" bob", expectedFilterCommand);
     }
 
     @Test
@@ -91,7 +94,7 @@ public class FilterPersonCommandParserTest {
         PersonPredicate expectedPredicate = new PersonPredicate(expectedPredicateMap);
         FilterPersonCommand expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
-        assertParseSuccess(parser, " n/and: alice pauline", expectedFilterCommand);
+        assertParseSuccess(parser, " " + PREFIX_PERSON_NAME_LONG + "and: alice pauline", expectedFilterCommand);
 
         // OR operator
         expectedPredicateMap.clear();
@@ -100,7 +103,7 @@ public class FilterPersonCommandParserTest {
         expectedPredicate = new PersonPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
-        assertParseSuccess(parser, " n/or: alice bob", expectedFilterCommand);
+        assertParseSuccess(parser, " " + PREFIX_PERSON_NAME_LONG + "or: alice bob", expectedFilterCommand);
 
         // NAND operator
         expectedPredicateMap.clear();
@@ -109,7 +112,7 @@ public class FilterPersonCommandParserTest {
         expectedPredicate = new PersonPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
-        assertParseSuccess(parser, " n/nand: alice bob", expectedFilterCommand);
+        assertParseSuccess(parser, " " + PREFIX_PERSON_NAME_LONG + "nand: alice bob", expectedFilterCommand);
 
         // NOR operator
         expectedPredicateMap.clear();
@@ -118,12 +121,12 @@ public class FilterPersonCommandParserTest {
         expectedPredicate = new PersonPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
-        assertParseSuccess(parser, " n/nor: alice bob", expectedFilterCommand);
+        assertParseSuccess(parser, " " + PREFIX_PERSON_NAME_LONG + "nor: alice bob", expectedFilterCommand);
     }
 
     @Test
     public void parse_invalidOperator_throwsParseException() {
-        assertParseFailure(parser, " n/invalid: alice",
+        assertParseFailure(parser, " " + PREFIX_PERSON_NAME_LONG + "invalid: alice",
                 String.format(MESSAGE_UNRECOGNIZED_OPERATOR, "invalid")
         );
     }
@@ -141,7 +144,8 @@ public class FilterPersonCommandParserTest {
         PersonPredicate expectedPredicate = new PersonPredicate(expectedPredicateMap);
         FilterPersonCommand expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
-        assertParseSuccess(parser, " n/alice e/or: gmail yahoo t/nand: friend",
-                expectedFilterCommand);
+        assertParseSuccess(parser, " " + PREFIX_PERSON_NAME_LONG + "alice "
+                + PREFIX_PERSON_EMAIL_LONG + "or: gmail yahoo "
+                + PREFIX_PERSON_TAG_LONG + "nand: friend", expectedFilterCommand);
     }
 }

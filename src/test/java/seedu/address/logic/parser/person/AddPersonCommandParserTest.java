@@ -29,12 +29,12 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_COURSE;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_EMAIL;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_GROUP;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_ID;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_NAME;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_PHONE;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_COURSE_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_EMAIL_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_GROUP_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_ID_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_NAME_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_PHONE_LONG;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
@@ -79,50 +79,51 @@ public class AddPersonCommandParserTest {
 
         // multiple names
         assertParseFailure(parser, NAME_DESC_AMY + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_NAME));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_NAME_LONG));
 
         // multiple phones
         assertParseFailure(parser, PHONE_DESC_AMY + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_PHONE));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_PHONE_LONG));
 
         // multiple emails
         assertParseFailure(parser, EMAIL_DESC_AMY + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_EMAIL));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_EMAIL_LONG));
 
         // multiple fields repeated
         assertParseFailure(parser,
                 validExpectedPersonString + PHONE_DESC_AMY + EMAIL_DESC_AMY + NAME_DESC_AMY
                         + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_NAME, PREFIX_PERSON_ID, PREFIX_PERSON_EMAIL,
-                        PREFIX_PERSON_PHONE, PREFIX_PERSON_COURSE, PREFIX_PERSON_GROUP));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_NAME_LONG, PREFIX_PERSON_ID_LONG,
+                    PREFIX_PERSON_EMAIL_LONG,
+                    PREFIX_PERSON_PHONE_LONG, PREFIX_PERSON_COURSE_LONG, PREFIX_PERSON_GROUP_LONG));
 
         // invalid value followed by valid value
 
         // invalid name
         assertParseFailure(parser, INVALID_NAME_DESC + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_NAME));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_NAME_LONG));
 
         // invalid email
         assertParseFailure(parser, INVALID_EMAIL_DESC + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_EMAIL));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_EMAIL_LONG));
 
         // invalid phone
         assertParseFailure(parser, INVALID_PHONE_DESC + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_PHONE));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_PHONE_LONG));
 
         // valid value followed by invalid value
 
         // invalid name
         assertParseFailure(parser, validExpectedPersonString + INVALID_NAME_DESC,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_NAME));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_NAME_LONG));
 
         // invalid email
         assertParseFailure(parser, validExpectedPersonString + INVALID_EMAIL_DESC,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_EMAIL));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_EMAIL_LONG));
 
         // invalid phone
         assertParseFailure(parser, validExpectedPersonString + INVALID_PHONE_DESC,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_PHONE));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PERSON_PHONE_LONG));
 
     }
 

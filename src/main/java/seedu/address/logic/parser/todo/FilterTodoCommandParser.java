@@ -3,11 +3,11 @@ package seedu.address.logic.parser.todo;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_NO_COLUMNS;
 import static seedu.address.logic.Messages.MESSAGE_NO_VALUES;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_LINKED_PERSON_INDEX;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_STATUS;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_PERSON_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_STATUS_LONG;
 
 import java.util.List;
 
@@ -39,55 +39,55 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
      */
     public FilterTodoCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TODO_NAME,
-                PREFIX_TODO_DEADLINE, PREFIX_TODO_LOCATION, PREFIX_TODO_STATUS,
-                PREFIX_LINKED_PERSON_INDEX);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TODO_NAME_LONG,
+            PREFIX_TODO_DEADLINE_LONG, PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_STATUS_LONG,
+            PREFIX_TODO_LINKED_PERSON_LONG);
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_NAME, PREFIX_TODO_DEADLINE,
-                PREFIX_TODO_LOCATION, PREFIX_TODO_STATUS, PREFIX_LINKED_PERSON_INDEX);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_NAME_LONG, PREFIX_TODO_DEADLINE_LONG,
+            PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_STATUS_LONG, PREFIX_TODO_LINKED_PERSON_LONG);
 
         TodoPredicate predicate = new TodoPredicate();
 
-        if (argMultimap.getValue(PREFIX_TODO_NAME).isPresent()) {
+        if (argMultimap.getValue(PREFIX_TODO_NAME_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_NAME).get());
+                ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_NAME_LONG).get());
             if (operatorStringPair.second().trim().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_TODO_NAME));
+                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_TODO_NAME_LONG));
             }
             predicate.setNamePredicate(new TodoNamePredicate(operatorStringPair.first(),
-                    List.of(operatorStringPair.second().split("\\s+"))));
+                List.of(operatorStringPair.second().split("\\s+"))));
         }
-        if (argMultimap.getValue(PREFIX_TODO_LOCATION).isPresent()) {
+        if (argMultimap.getValue(PREFIX_TODO_LOCATION_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_LOCATION).get());
+                ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_LOCATION_LONG).get());
             if (operatorStringPair.second().trim().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_TODO_LOCATION));
+                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_TODO_LOCATION_LONG));
             }
             predicate.setLocationPredicate(new TodoLocationPredicate(operatorStringPair.first(),
-                    List.of(operatorStringPair.second().split("\\s+"))));
+                List.of(operatorStringPair.second().split("\\s+"))));
         }
-        if (argMultimap.getValue(PREFIX_TODO_STATUS).isPresent()) {
-            if (argMultimap.getValue(PREFIX_TODO_STATUS).get().trim().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_TODO_STATUS));
+        if (argMultimap.getValue(PREFIX_TODO_STATUS_LONG).isPresent()) {
+            if (argMultimap.getValue(PREFIX_TODO_STATUS_LONG).get().trim().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_TODO_STATUS_LONG));
             }
             predicate.setStatusPredicate(new TodoStatusPredicate(ParserUtil.parseBoolean(
-                    argMultimap.getValue(PREFIX_TODO_STATUS).get()
+                argMultimap.getValue(PREFIX_TODO_STATUS_LONG).get()
             )));
         }
-        if (argMultimap.getValue(PREFIX_TODO_DEADLINE).isPresent()) {
+        if (argMultimap.getValue(PREFIX_TODO_DEADLINE_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_DEADLINE).get());
+                ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_DEADLINE_LONG).get());
             predicate.setDeadlinePredicate(new TodoDeadlinePredicate(operatorStringPair.first(),
-                    ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
+                ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
         }
-        if (argMultimap.getValue(PREFIX_LINKED_PERSON_INDEX).isPresent()) {
+        if (argMultimap.getValue(PREFIX_TODO_LINKED_PERSON_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair = ParserUtil.parseOperatorAndString(
-                    argMultimap.getValue(PREFIX_LINKED_PERSON_INDEX).get());
+                argMultimap.getValue(PREFIX_TODO_LINKED_PERSON_LONG).get());
             predicate.setPersonOperator(operatorStringPair.first());
             List<Index> personIndices = ParserUtil.parseIndices(operatorStringPair.second());
             if (personIndices.isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES,
-                        PREFIX_LINKED_PERSON_INDEX));
+                    PREFIX_TODO_LINKED_PERSON_LONG));
             }
             predicate.setPersonIndices(ParserUtil.parseIndices(operatorStringPair.second()));
         }

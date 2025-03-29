@@ -2,13 +2,13 @@ package seedu.address.logic.commands.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PERSON_COMMAND_WORD;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_COURSE;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_EMAIL;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_GROUP;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_ID;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_NAME;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_PHONE;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_COURSE_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_EMAIL_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_GROUP_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_ID_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_NAME_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_PHONE_LONG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG_LONG;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -39,24 +39,24 @@ public class EditPersonCommand extends EditCommand<Person> {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = PERSON_COMMAND_WORD + " " + COMMAND_WORD + ": Edits the details of the "
-            + "person identified by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_PERSON_ID + "ID] "
-            + "[" + PREFIX_PERSON_NAME + "NAME] "
-            + "[" + PREFIX_PERSON_PHONE + "PHONE] "
-            + "[" + PREFIX_PERSON_EMAIL + "EMAIL] "
-            + "[" + PREFIX_PERSON_COURSE + "COURSE] "
-            + "[" + PREFIX_PERSON_GROUP + "GROUP] "
-            + "[" + PREFIX_PERSON_TAG + "TAG]...\n"
-            + "Example: " + PERSON_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_PERSON_PHONE + "91234567 "
-            + PREFIX_PERSON_EMAIL + "johndoe@example.com";
+        + "person identified by the index number used in the displayed person list. "
+        + "Existing values will be overwritten by the input values.\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + "[" + PREFIX_PERSON_ID_LONG + " ID] "
+        + "[" + PREFIX_PERSON_NAME_LONG + " NAME] "
+        + "[" + PREFIX_PERSON_PHONE_LONG + " PHONE] "
+        + "[" + PREFIX_PERSON_EMAIL_LONG + " EMAIL] "
+        + "[" + PREFIX_PERSON_COURSE_LONG + " COURSE] "
+        + "[" + PREFIX_PERSON_GROUP_LONG + " GROUP] "
+        + "[" + PREFIX_PERSON_TAG_LONG + " TAG]...\n"
+        + "Example: " + PERSON_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
+        + PREFIX_PERSON_PHONE_LONG + " 91234567 "
+        + PREFIX_PERSON_EMAIL_LONG + " johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON =
-            "This person already exists in the address book.";
+        "This person already exists in the address book.";
 
     private final EditPersonDescriptor editPersonDescriptor;
 
@@ -86,7 +86,7 @@ public class EditPersonCommand extends EditCommand<Person> {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedId, updatedName, updatedPhone, updatedEmail, updatedCourse,
-                updatedGroup, updatedTags);
+            updatedGroup, updatedTags);
     }
 
     @Override
@@ -116,15 +116,15 @@ public class EditPersonCommand extends EditCommand<Person> {
         }
 
         return index.equals(otherEditCommand.index)
-                && editPersonDescriptor.equals(otherEditCommand.editPersonDescriptor);
+            && editPersonDescriptor.equals(otherEditCommand.editPersonDescriptor);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("index", index)
-                .add("editPersonDescriptor", editPersonDescriptor)
-                .toString();
+            .add("index", index)
+            .add("editPersonDescriptor", editPersonDescriptor)
+            .toString();
     }
 
     /**
@@ -163,20 +163,20 @@ public class EditPersonCommand extends EditCommand<Person> {
             return CollectionUtil.isAnyNonNull(id, name, phone, email, tags, course, group);
         }
 
-        public void setId(Id id) {
-            this.id = id;
-        }
-
         public Optional<Id> getId() {
             return Optional.ofNullable(id);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public void setId(Id id) {
+            this.id = id;
         }
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setName(Name name) {
+            this.name = name;
         }
 
         public Optional<Phone> getPhone() {
@@ -217,7 +217,7 @@ public class EditPersonCommand extends EditCommand<Person> {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags))
-                    : Optional.empty();
+                : Optional.empty();
         }
 
         /**
@@ -240,25 +240,25 @@ public class EditPersonCommand extends EditCommand<Person> {
             }
 
             return Objects.equals(id, otherEditPersonDescriptor.id)
-                    && Objects.equals(name, otherEditPersonDescriptor.name)
-                    && Objects.equals(phone, otherEditPersonDescriptor.phone)
-                    && Objects.equals(email, otherEditPersonDescriptor.email)
-                    && Objects.equals(course, otherEditPersonDescriptor.course)
-                    && Objects.equals(group, otherEditPersonDescriptor.group)
-                    && Objects.equals(tags, otherEditPersonDescriptor.tags);
+                && Objects.equals(name, otherEditPersonDescriptor.name)
+                && Objects.equals(phone, otherEditPersonDescriptor.phone)
+                && Objects.equals(email, otherEditPersonDescriptor.email)
+                && Objects.equals(course, otherEditPersonDescriptor.course)
+                && Objects.equals(group, otherEditPersonDescriptor.group)
+                && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
 
         @Override
         public String toString() {
             return new ToStringBuilder(this)
-                    .add("id", id)
-                    .add("name", name)
-                    .add("phone", phone)
-                    .add("email", email)
-                    .add("course", course)
-                    .add("group", group)
-                    .add("tags", tags)
-                    .toString();
+                .add("id", id)
+                .add("name", name)
+                .add("phone", phone)
+                .add("email", email)
+                .add("course", course)
+                .add("group", group)
+                .add("tags", tags)
+                .toString();
         }
 
     }

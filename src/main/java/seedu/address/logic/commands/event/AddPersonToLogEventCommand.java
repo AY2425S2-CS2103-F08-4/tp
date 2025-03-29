@@ -2,7 +2,7 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_LINKED_PERSON_INDEX;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKED_PERSON_LONG;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -26,10 +26,10 @@ public class AddPersonToLogEventCommand extends EditCommand<Event> {
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Logs some contacts with an event.\n"
             + "Parameters: INDEX "
-            + PREFIX_LINKED_PERSON_INDEX + " [PERSON_INDEX]...\n"
+            + PREFIX_EVENT_LINKED_PERSON_LONG + " [PERSON_INDEX]...\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_LINKED_PERSON_INDEX + " 1 2 3";
-    public static final String MESSAGE_ADD_LOG_SUCCESS = "Added attendence from persons to event: %1$s";
+            + PREFIX_EVENT_LINKED_PERSON_LONG + " 1 2 3";
+    public static final String MESSAGE_ADD_LOG_SUCCESS = "Added attendance from persons to event: %1$s";
     public static final String MESSAGE_PERSON_ALREADY_LOGGED =
             "The person at the following index(es) are already logged: %s";
 

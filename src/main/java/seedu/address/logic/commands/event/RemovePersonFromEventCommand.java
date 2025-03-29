@@ -2,7 +2,7 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_LINKED_PERSON_INDEX;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKED_PERSON_LONG;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -26,9 +26,9 @@ public class RemovePersonFromEventCommand extends EditCommand<Event> {
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Remove the association between a event and some contacts.\n"
             + "Parameters: INDEX "
-            + PREFIX_LINKED_PERSON_INDEX + " [PERSON_INDEX]...\n"
+            + PREFIX_EVENT_LINKED_PERSON_LONG + " [PERSON_INDEX]...\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_LINKED_PERSON_INDEX + " 1 3 4";
+            + PREFIX_EVENT_LINKED_PERSON_LONG + " 1 3 4";
     public static final String MESSAGE_REMOVE_PERSON_SUCCESS = "Removed persons from event: %1$s";
 
     private final List<Index> personIndices;

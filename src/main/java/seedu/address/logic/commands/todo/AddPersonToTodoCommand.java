@@ -2,7 +2,7 @@ package seedu.address.logic.commands.todo;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_LINKED_PERSON_INDEX;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_PERSON_LONG;
 
 import java.util.List;
 import java.util.function.Function;
@@ -29,9 +29,9 @@ public class AddPersonToTodoCommand extends EditCommand<Todo> {
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
             + ": Associate a todo with some contacts.\n"
             + "Parameters: INDEX "
-            + PREFIX_LINKED_PERSON_INDEX + "[PERSON_INDEX]...\n"
+            + PREFIX_TODO_LINKED_PERSON_LONG + " [PERSON_INDEX]...\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_LINKED_PERSON_INDEX + " 1 3 4";
+            + PREFIX_TODO_LINKED_PERSON_LONG + " 1 3 4";
 
     public static final String MESSAGE_ADD_PERSON_SUCCESS = "Added persons to todo: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON =

@@ -2,7 +2,7 @@ package seedu.address.logic.commands.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PERSON_COMMAND_WORD;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG_LONG;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,9 +22,9 @@ public class AddTagToPersonCommand extends EditCommand<Person> {
     public static final String COMMAND_WORD = "tag";
     public static final String MESSAGE_USAGE = PERSON_COMMAND_WORD + " " + COMMAND_WORD
             + ": Adds a tag to a specified person.\n"
-            + "Parameters: INDEX " + PREFIX_PERSON_TAG + " <tag>\n"
+            + "Parameters: INDEX " + PREFIX_PERSON_TAG_LONG + " <tag>\n"
             + "Example: " + PERSON_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_PERSON_TAG + " TA";
+            + PREFIX_PERSON_TAG_LONG + " TA";
     public static final String MESSAGE_ADD_TAG_SUCCESSFUL = "Added tag to person: %1$s";
     public static final String MESSAGE_DUPLICATE_TAGS = "The tag is already assigned to this person";
     private final Tag tag;
