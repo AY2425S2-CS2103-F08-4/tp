@@ -8,12 +8,12 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Person;
 import seedu.address.model.todo.Todo;
 
 /**
- * Panel containing the unified list that can display persons, events, or todos.
+ * Panel containing the unified list that can display contacts, events, or todos.
  */
 public class ListPanel extends UiPart<Region> {
     private static final String FXML = "ListPanel.fxml";
@@ -30,10 +30,10 @@ public class ListPanel extends UiPart<Region> {
     }
 
     /**
-     * Creates a {@code ListPanel} with the given {@code ObservableList} of persons.
+     * Creates a {@code ListPanel} with the given {@code ObservableList} of contacts.
      */
-    public void setPersonList(ObservableList<Person> personList) {
-        listView.setItems((ObservableList<Object>) (Object) personList);
+    public void setContactList(ObservableList<Contact> contactList) {
+        listView.setItems((ObservableList<Object>) (Object) contactList);
         listView.setCellFactory(listView -> new ListViewCell());
     }
 
@@ -64,8 +64,8 @@ public class ListPanel extends UiPart<Region> {
             if (empty || item == null) {
                 setGraphic(null);
                 setText(null);
-            } else if (item instanceof Person) {
-                setGraphic(new PersonCard((Person) item, getIndex() + 1).getRoot());
+            } else if (item instanceof Contact) {
+                setGraphic(new ContactCard((Contact) item, getIndex() + 1).getRoot());
             } else if (item instanceof Event) {
                 setGraphic(new EventCard((Event) item, getIndex() + 1).getRoot());
             } else if (item instanceof Todo) {

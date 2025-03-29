@@ -14,9 +14,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserImpl;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 import seedu.address.model.item.ItemManager;
-import seedu.address.model.person.Person;
 import seedu.address.model.todo.Todo;
 import seedu.address.storage.Storage;
 
@@ -53,7 +53,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getPersonManagerAndList().getItemManager());
+            storage.saveAddressBook(model.getContactManagerAndList().getItemManager());
             storage.saveTodoList(model.getTodoManagerAndList().getItemManager());
             storage.saveEventList(model.getEventManagerAndList().getItemManager());
         } catch (AccessDeniedException e) {
@@ -66,13 +66,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ItemManager<Person> getAddressBook() {
-        return model.getPersonManagerAndList().getItemManager();
+    public ItemManager<Contact> getAddressBook() {
+        return model.getContactManagerAndList().getItemManager();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getPersonManagerAndList().getFilteredItemsList();
+    public ObservableList<Contact> getFilteredContactList() {
+        return model.getContactManagerAndList().getFilteredItemsList();
     }
 
     @Override

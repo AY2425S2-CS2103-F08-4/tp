@@ -7,7 +7,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.todo.DisplayTodoInformationCommand;
+import seedu.address.logic.commands.read.InfoTodoCommand;
 
 public class DisplayTodoInfoCommandParserTest {
 
@@ -15,7 +15,7 @@ public class DisplayTodoInfoCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DisplayTodoInformationCommand(INDEX_FIRST));
+        assertParseSuccess(parser, "1", new InfoTodoCommand(INDEX_FIRST));
     }
 
     @Test

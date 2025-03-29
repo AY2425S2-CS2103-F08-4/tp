@@ -60,7 +60,7 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
 
     /**
      * Replaces the item {@code target} in the list with {@code editedItem}. {@code target} must
-     * exist in the list. {@code editedPerson} must not be the same as another existing item in the
+     * exist in the list. {@code editedContact} must not be the same as another existing item in the
      * list.
      */
     public void setItem(T target, T editedItem) {
@@ -97,7 +97,7 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
 
     /**
      * Replaces the contents of this list with {@code items}. {@code items} must not contain
-     * duplicate persons.
+     * duplicate contacts.
      */
     public void setItems(List<T> items) {
         requireAllNonNull(items);
@@ -146,7 +146,7 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
     }
 
     /**
-     * Returns true if {@code items} contains only unique persons.
+     * Returns true if {@code items} contains only unique contacts.
      */
     private boolean itemsAreUnique(List<T> items) {
         for (int i = 0; i < items.size() - 1; i++) {
@@ -169,4 +169,3 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
      */
     public abstract void throwNotFoundException();
 }
-

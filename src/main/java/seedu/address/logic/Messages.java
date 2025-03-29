@@ -6,9 +6,9 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Tag;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Tag;
 import seedu.address.model.todo.Todo;
 
 /**
@@ -19,11 +19,11 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_ARGUMENTS = "Arguments missing or invalid! \n%1$s";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
+    public static final String MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX = "The contact index provided is invalid";
     public static final String MESSAGE_SEARCH_OVERVIEW = "Number of results: %1$d";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
-    public static final String MESSAGE_DISPLAY_SPECIFIC_PERSON_INFO = "Displaying full information of student: %s!";
+    public static final String MESSAGE_DISPLAY_SPECIFIC_CONTACT_INFO = "Displaying full information of student: %s!";
 
     public static final String MESSAGE_DUPLICATE_COLUMN = "Duplicate column: %s.";
     public static final String MESSAGE_NO_COLUMNS = "Specify at least one column and value.";
@@ -44,23 +44,21 @@ public class Messages {
     }
 
     /**
-     * Formats the {@code person} for display to the user.
+     * Formats the {@code contact} for display to the user.
      */
-    public static String format(Person person) {
+    public static String format(Contact contact) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(person.getName())
+        builder.append(contact.getName())
                .append("; ID: ")
-               .append(person.getId())
-               .append("; Phone: ")
-               .append(person.getPhone())
+               .append(contact.getId())
                .append("; Email: ")
-               .append(person.getEmail())
+               .append(contact.getEmail())
                .append("; Course: ")
-               .append(person.getCourse())
+               .append(contact.getCourse())
                .append("; Group: ")
-               .append(person.getGroup())
+               .append(contact.getGroup())
                .append("; Tags: ");
-        person.getTags()
+        contact.getTags()
               .forEach(builder::append);
         return builder.toString();
     }
@@ -69,7 +67,7 @@ public class Messages {
      * Formats the {@code todo} for display to the user.
      */
     public static String format(Todo todo) {
-        String personsFormatted = getTodoPersonListFormatted(todo);
+        String contactsFormatted = getTodoContactListFormatted(todo);
         String tagsFormatted;
 
         if (todo.getTags().isEmpty()) {
@@ -85,31 +83,31 @@ public class Messages {
                 + "; Location: " + todo.getLocation()
                 + "; Status: " + todo.getStatus()
                 + "; Tags: " + tagsFormatted
-                + "; Persons:" + (todo.getPersons().isEmpty() ? " " : "\n") + personsFormatted;
+                + "; Contacts:" + (todo.getContacts().isEmpty() ? " " : "\n") + contactsFormatted;
     }
 
     /**
      * Formats the {@code todo} for display to the user.
      */
     public static String format(Event event) {
-        String personListFormatted = getEventPersonListFormatted(event);
+        String contactListFormatted = getEventContactListFormatted(event);
         String eventListFormatted = getEventTagListFormatted(event);
         return event.getName()
                 + "; Start Time: " + event.getStartTime()
                 + "; End Time: " + event.getEndTime()
                 + "; Location: " + event.getLocation()
                 + "; Tag: " + eventListFormatted
-                + "; Persons: " + personListFormatted;
+                + "; Contacts: " + contactListFormatted;
     }
 
     /**
-     * Returns a simplified format of a {@code person} for display to the user.
+     * Returns a simplified format of a {@code contact} for display to the user.
      */
-    public static String getSimplifiedFormat(Person person) {
-        return person.getName()
-                + "; ID: " + person.getId()
-                + "; Course: " + person.getCourse()
-                + "; Group: " + person.getGroup();
+    public static String getSimplifiedFormat(Contact contact) {
+        return contact.getName()
+                + "; ID: " + contact.getId()
+                + "; Course: " + contact.getCourse()
+                + "; Group: " + contact.getGroup();
     }
 
     private static String getTodoTagListFormatted(Todo todo) {
@@ -132,24 +130,24 @@ public class Messages {
         }
     }
 
-    private static String getTodoPersonListFormatted(Todo todo) {
-        if (todo.getPersons().isEmpty()) {
+    private static String getTodoContactListFormatted(Todo todo) {
+        if (todo.getContacts().isEmpty()) {
             return "None";
         } else {
-            return IntStream.range(0, todo.getPersons().size())
-                    .mapToObj(i -> (i + 1) + ". " + getSimplifiedFormat(todo.getPersons().get(i)))
+            return IntStream.range(0, todo.getContacts().size())
+                    .mapToObj(i -> (i + 1) + ". " + getSimplifiedFormat(todo.getContacts().get(i)))
                     .collect(Collectors.joining("\n"));
         }
     }
 
-    private static String getEventPersonListFormatted(Event event) {
-        if (event.getPersons().isEmpty()) {
+    private static String getEventContactListFormatted(Event event) {
+        if (event.getContacts().isEmpty()) {
             return "None";
         }
-        String string = "\n" + IntStream.range(0, event.getPersons().size())
+        String string = "\n" + IntStream.range(0, event.getContacts().size())
                 .mapToObj(i -> String.format("%d.[%s] %s",
                         i + 1, event.getMarkedList().get(i) ? "X" : " ",
-                        getSimplifiedFormat(event.getPersons().get(i))))
+                        getSimplifiedFormat(event.getContacts().get(i))))
                 .collect(Collectors.joining("\n"));
         return string;
     }

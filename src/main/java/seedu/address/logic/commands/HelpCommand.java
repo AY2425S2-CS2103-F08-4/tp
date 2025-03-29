@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
-import static seedu.address.logic.parser.CliSyntax.PERSON_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -16,7 +16,7 @@ public class HelpCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
         + "Supports three main commands:\n"
-        + PERSON_COMMAND_WORD + ": Manages your contacts.\n"
+        + CONTACT_COMMAND_WORD + ": Manages your contacts.\n"
         + TODO_COMMAND_WORD + ": Manages your todos.\n"
         + EVENT_COMMAND_WORD + ": Manages your events.";
 

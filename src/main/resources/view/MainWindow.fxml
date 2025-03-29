@@ -45,7 +45,7 @@
               <padding>
                 <Insets top="10" right="10" bottom="10" left="10" />
               </padding>
-              <Button fx:id="personButton" text="Contact" onAction="#handlePersonButton" styleClass="toggle-button" />
+              <Button fx:id="contactButton" text="Contact" onAction="#handleContactButton" styleClass="toggle-button" />
               <Button fx:id="eventButton" text="Event" onAction="#handleEventButton" styleClass="toggle-button" />
               <Button fx:id="todoButton" text="Todo" onAction="#handleTodoButton" styleClass="toggle-button" />
               <Button fx:id="resetButton" onAction="#handleResetButton" styleClass="toggle-button">

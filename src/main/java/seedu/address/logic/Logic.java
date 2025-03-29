@@ -7,9 +7,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 import seedu.address.model.item.ItemManager;
-import seedu.address.model.person.Person;
 import seedu.address.model.todo.Todo;
 
 /**
@@ -29,7 +29,7 @@ public interface Logic {
     /**
      * Returns the AddressBook.
      */
-    ItemManager<Person> getAddressBook();
+    ItemManager<Contact> getAddressBook();
 
     /**
      * Returns the Todo list.
@@ -42,9 +42,9 @@ public interface Logic {
     ItemManager<Event> getEventList();
 
     /**
-     * Returns an unmodifiable view of the filtered list of persons
+     * Returns an unmodifiable view of the filtered list of contacts
      */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Contact> getFilteredContactList();
 
     /**
      * Returns an unmodifiable view of the filtered list of todos

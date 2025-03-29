@@ -10,18 +10,18 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.todo.AddPersonToTodoCommand;
-import seedu.address.logic.commands.todo.AddTagToTodoCommand;
-import seedu.address.logic.commands.todo.AddTodoCommand;
-import seedu.address.logic.commands.todo.ClearTodoCommand;
-import seedu.address.logic.commands.todo.DeleteTodoCommand;
-import seedu.address.logic.commands.todo.DisplayTodoInformationCommand;
-import seedu.address.logic.commands.todo.FilterTodoCommand;
-import seedu.address.logic.commands.todo.ListTodoCommand;
-import seedu.address.logic.commands.todo.MarkTodoAsDoneCommand;
-import seedu.address.logic.commands.todo.MarkTodoAsNotDoneCommand;
-import seedu.address.logic.commands.todo.RemovePersonFromTodoCommand;
-import seedu.address.logic.commands.todo.RemoveTagFromTodoCommand;
+import seedu.address.logic.commands.update.AddContactToTodoCommand;
+import seedu.address.logic.commands.update.AddTagToTodoCommand;
+import seedu.address.logic.commands.create.AddTodoCommand;
+import seedu.address.logic.commands.delete.ClearTodoCommand;
+import seedu.address.logic.commands.delete.DeleteTodoCommand;
+import seedu.address.logic.commands.read.InfoTodoCommand;
+import seedu.address.logic.commands.read.FilterTodoCommand;
+import seedu.address.logic.commands.read.ListTodoCommand;
+import seedu.address.logic.commands.update.MarkTodoAsDoneCommand;
+import seedu.address.logic.commands.update.MarkTodoAsNotDoneCommand;
+import seedu.address.logic.commands.update.RemoveContactFromTodoCommand;
+import seedu.address.logic.commands.update.RemoveTagFromTodoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -63,7 +63,7 @@ public class TodoParser {
         case AddTodoCommand.COMMAND_WORD:
             return new AddTodoCommandParser().parse(arguments);
 
-        case DisplayTodoInformationCommand.COMMAND_WORD:
+        case InfoTodoCommand.COMMAND_WORD:
             return new DisplayTodoInfoCommandParser().parse(arguments);
 
         case ListTodoCommand.COMMAND_WORD:
@@ -72,11 +72,11 @@ public class TodoParser {
         case DeleteTodoCommand.COMMAND_WORD:
             return new DeleteTodoCommandParser().parse(arguments);
 
-        case AddPersonToTodoCommand.COMMAND_WORD:
-            return new AddPersonToTodoCommandParser().parse(arguments);
+        case AddContactToTodoCommand.COMMAND_WORD:
+            return new AddContactToTodoCommandParser().parse(arguments);
 
-        case RemovePersonFromTodoCommand.COMMAND_WORD:
-            return new RemovePersonFromTodoCommandParser().parse(arguments);
+        case RemoveContactFromTodoCommand.COMMAND_WORD:
+            return new RemoveContactFromTodoCommandParser().parse(arguments);
 
         case MarkTodoAsDoneCommand.COMMAND_WORD:
             return new MarkTodoAsDoneCommandParser().parse(arguments);

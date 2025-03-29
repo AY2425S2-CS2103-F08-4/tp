@@ -1,7 +1,7 @@
 package seedu.address.logic.parser.todo;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.todo.DeleteTodoCommand;
+import seedu.address.logic.commands.delete.DeleteTodoCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;

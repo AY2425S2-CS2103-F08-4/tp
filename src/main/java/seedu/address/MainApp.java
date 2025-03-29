@@ -19,13 +19,13 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactManager;
+import seedu.address.model.contact.ContactManagerWithFilteredList;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventManager;
 import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.item.ItemManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.PersonManager;
-import seedu.address.model.person.PersonManagerWithFilteredList;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoManager;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
@@ -34,8 +34,8 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.contact.JsonContactStorage;
 import seedu.address.storage.event.JsonEventStorage;
-import seedu.address.storage.person.JsonPersonStorage;
 import seedu.address.storage.todo.JsonTodoStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
@@ -66,10 +66,10 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        JsonPersonStorage personStorage = new JsonPersonStorage(userPrefs.getAddressBookFilePath());
+        JsonContactStorage contactStorage = new JsonContactStorage(userPrefs.getAddressBookFilePath());
         JsonTodoStorage todoStorage = new JsonTodoStorage(userPrefs.getTodoListFilePath());
         JsonEventStorage eventStorage = new JsonEventStorage(userPrefs.getEventListFilePath());
-        storage = new StorageManager(personStorage, todoStorage, eventStorage, userPrefsStorage);
+        storage = new StorageManager(contactStorage, todoStorage, eventStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
 
@@ -85,19 +85,19 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         logger.info("Using data file : " + storage.getAddressBookFilePath());
 
-        Optional<ItemManager<Person>> addressBookOptional;
-        ItemManager<Person> initialPersonData;
+        Optional<ItemManager<Contact>> addressBookOptional;
+        ItemManager<Contact> initialContactData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getAddressBookFilePath()
                         + " populated with a sample AddressBook.");
             }
-            initialPersonData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialContactData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataLoadingException e) {
             logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
                     + " Will be starting with an empty AddressBook.");
-            initialPersonData = new PersonManager();
+            initialContactData = new ContactManager();
         }
 
         Optional<ItemManager<Todo>> todoListOptional;
@@ -132,7 +132,7 @@ public class MainApp extends Application {
 
         return new ModelManager(
                 userPrefs,
-                new PersonManagerWithFilteredList(initialPersonData),
+                new ContactManagerWithFilteredList(initialContactData),
                 new TodoManagerWithFilteredList(initialTodoData),
                 new EventManagerWithFilteredList(initialEventData)
         );

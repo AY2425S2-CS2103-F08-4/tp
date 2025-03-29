@@ -23,7 +23,7 @@ class JsonSerializableTodoManager {
     private final List<JsonAdaptedTodo> todos = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializablePersonManager} with the given persons.
+     * Constructs a {@code JsonSerializableContactManager} with the given contacts.
      */
     @JsonCreator
     public JsonSerializableTodoManager(@JsonProperty("todos") List<JsonAdaptedTodo> todos) {

@@ -1,0 +1,9 @@
+{
+  "contacts": [ {
+    "id": "A00000010",
+    "name": "Hans Muster",
+    "email": "invalid@email!3e",
+    "course": "CS80",
+    "group" : "T33"
+  } ]
+}

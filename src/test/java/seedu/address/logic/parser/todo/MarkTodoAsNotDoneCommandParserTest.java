@@ -7,7 +7,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.todo.MarkTodoAsNotDoneCommand;
+import seedu.address.logic.commands.update.MarkTodoAsNotDoneCommand;
 
 public class MarkTodoAsNotDoneCommandParserTest {
 
