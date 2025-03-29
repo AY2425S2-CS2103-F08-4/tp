@@ -2,9 +2,9 @@ package seedu.address.logic.commands.todo;
 
 import static seedu.address.logic.TodoMessages.MESSAGE_DUPLICATE_TODO;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -22,13 +22,13 @@ public class AddTodoCommand extends AddCommand<Todo> {
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
             + ": Adds a todo to the app. "
             + "Parameters: "
-            + PREFIX_TODO_NAME + "NAME "
-            + PREFIX_TODO_DEADLINE + "PREFIX_TODO_DEADLINE "
-            + PREFIX_TODO_LOCATION + "LOCATION\n"
+            + PREFIX_TODO_NAME_LONG + " NAME "
+            + PREFIX_TODO_DEADLINE_LONG + " PREFIX_TODO_DEADLINE "
+            + PREFIX_TODO_LOCATION_LONG + " LOCATION\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " "
-            + PREFIX_TODO_NAME + "Grading students projects "
-            + PREFIX_TODO_DEADLINE + "25-05-23 17:00 "
-            + PREFIX_TODO_LOCATION + "NUS Science ";
+            + PREFIX_TODO_NAME_LONG + " Grading students projects "
+            + PREFIX_TODO_DEADLINE_LONG + " 25-05-23 17:00 "
+            + PREFIX_TODO_LOCATION_LONG + " NUS Science ";
 
     public static final String MESSAGE_SUCCESS = "New todo added: %1$s";
 

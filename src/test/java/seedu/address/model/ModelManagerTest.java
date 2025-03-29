@@ -3,10 +3,10 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalContacts.ALICE;
+import static seedu.address.testutil.TypicalContacts.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,10 +15,10 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.contact.ContactManager;
+import seedu.address.model.contact.ContactManagerWithFilteredList;
+import seedu.address.model.contact.NameContainsKeywordsPredicate;
 import seedu.address.model.event.EventManagerWithFilteredList;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.PersonManager;
-import seedu.address.model.person.PersonManagerWithFilteredList;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
 import seedu.address.testutil.AddressBookBuilder;
 
@@ -30,8 +30,8 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new PersonManager(),
-                new PersonManager(modelManager.getPersonManagerAndList().getItemManager()));
+        assertEquals(new ContactManager(),
+                new ContactManager(modelManager.getContactManagerAndList().getItemManager()));
     }
 
     @Test
@@ -78,44 +78,44 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasContact_nullContact_throwsNullPointerException() {
         assertThrows(NullPointerException.class, ()
-                -> modelManager.getPersonManagerAndList().hasItem(null));
+                -> modelManager.getContactManagerAndList().hasItem(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.getPersonManagerAndList().hasItem(ALICE));
+    public void hasContact_contactNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.getContactManagerAndList().hasItem(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.getPersonManagerAndList().addItem(ALICE);
-        assertTrue(modelManager.getPersonManagerAndList().hasItem(ALICE));
+    public void hasContact_contactInAddressBook_returnsTrue() {
+        modelManager.getContactManagerAndList().addItem(ALICE);
+        assertTrue(modelManager.getContactManagerAndList().hasItem(ALICE));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredContactList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () ->
-                modelManager.getPersonManagerAndList().getFilteredItemsList().remove(0));
+                modelManager.getContactManagerAndList().getFilteredItemsList().remove(0));
     }
 
     @Test
     public void equals() {
-        PersonManager personManager = new AddressBookBuilder().withPerson(ALICE)
-                .withPerson(BENSON).build();
-        PersonManager differentPersonManager = new PersonManager();
+        ContactManager contactManager = new AddressBookBuilder().withContact(ALICE)
+                .withContact(BENSON).build();
+        ContactManager differentContactManager = new ContactManager();
         UserPrefs userPrefs = new UserPrefs();
 
         modelManager = new ModelManager(
                 userPrefs,
-                new PersonManagerWithFilteredList(personManager),
+                new ContactManagerWithFilteredList(contactManager),
                 new TodoManagerWithFilteredList(),
                 new EventManagerWithFilteredList()
         );
         ModelManager modelManagerCopy = new ModelManager(
                 userPrefs,
-                new PersonManagerWithFilteredList(personManager),
+                new ContactManagerWithFilteredList(contactManager),
                 new TodoManagerWithFilteredList(),
                 new EventManagerWithFilteredList()
         );
@@ -133,31 +133,31 @@ public class ModelManagerTest {
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(
                 userPrefs,
-                new PersonManagerWithFilteredList(differentPersonManager),
+                new ContactManagerWithFilteredList(differentContactManager),
                 new TodoManagerWithFilteredList(),
                 new EventManagerWithFilteredList()
         )));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.getPersonManagerAndList()
+        modelManager.getContactManagerAndList()
                 .updateFilteredItemsList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(
                 userPrefs,
-                new PersonManagerWithFilteredList(personManager),
+                new ContactManagerWithFilteredList(contactManager),
                 new TodoManagerWithFilteredList(),
                 new EventManagerWithFilteredList()
         )));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.getPersonManagerAndList().updateFilteredItemsList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.getContactManagerAndList().updateFilteredItemsList(PREDICATE_SHOW_ALL_CONTACTS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(
                 differentUserPrefs,
-                new PersonManagerWithFilteredList(personManager),
+                new ContactManagerWithFilteredList(contactManager),
                 new TodoManagerWithFilteredList(),
                 new EventManagerWithFilteredList()
         )));

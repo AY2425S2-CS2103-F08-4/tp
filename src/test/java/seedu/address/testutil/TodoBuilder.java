@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Tag;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Tag;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoDeadline;
 import seedu.address.model.todo.TodoLocation;
@@ -21,14 +21,14 @@ public class TodoBuilder {
     public static final String DEFAULT_DEADLINE = "25-12-31 23:59";
     public static final String DEFAULT_LOCATION = "EARTH";
     public static final boolean DEFAULT_STATUS = false;
-    public static final List<Person> DEFAULT_PERSONS = List.of();
+    public static final List<Contact> DEFAULT_CONTACTS = List.of();
     public static final Set<Tag> DEFAULT_TAGS = new HashSet<>();
 
     private TodoName name;
     private TodoDeadline deadline;
     private TodoLocation location;
     private TodoStatus status;
-    private List<Person> persons;
+    private List<Contact> contacts;
     private Set<Tag> tags;
 
 
@@ -40,7 +40,7 @@ public class TodoBuilder {
         deadline = new TodoDeadline(DEFAULT_DEADLINE);
         location = new TodoLocation(DEFAULT_LOCATION);
         status = new TodoStatus(DEFAULT_STATUS);
-        persons = List.copyOf(DEFAULT_PERSONS);
+        contacts = List.copyOf(DEFAULT_CONTACTS);
         tags = Set.copyOf(DEFAULT_TAGS);
     }
 
@@ -52,7 +52,7 @@ public class TodoBuilder {
         deadline = todoToCopy.getDeadline();
         location = todoToCopy.getLocation();
         status = todoToCopy.getStatus();
-        persons = List.copyOf(todoToCopy.getPersons());
+        contacts = List.copyOf(todoToCopy.getContacts());
         tags = Set.copyOf(todoToCopy.getTags());
     }
 
@@ -89,15 +89,15 @@ public class TodoBuilder {
     }
 
     /**
-     * Sets the {@code List<Person>} of the {@code Todo} that we are building.
+     * Sets the {@code List<Contact>} of the {@code Todo} that we are building.
      */
-    public TodoBuilder withPersons(List<Person> persons) {
-        this.persons = List.copyOf(persons);
+    public TodoBuilder withContacts(List<Contact> contacts) {
+        this.contacts = List.copyOf(contacts);
         return this;
     }
 
     public Todo build() {
-        return new Todo(name, deadline, location, status, persons, tags);
+        return new Todo(name, deadline, location, status, contacts, tags);
     }
 
 }

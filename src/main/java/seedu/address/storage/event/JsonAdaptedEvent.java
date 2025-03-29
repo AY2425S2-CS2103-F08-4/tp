@@ -10,14 +10,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Tag;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDateTime;
 import seedu.address.model.event.EventLocation;
 import seedu.address.model.event.EventName;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Tag;
-import seedu.address.storage.person.JsonAdaptedPerson;
-import seedu.address.storage.person.JsonAdaptedTag;
+import seedu.address.storage.contact.JsonAdaptedContact;
+import seedu.address.storage.contact.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Event}.
@@ -30,7 +30,7 @@ public class JsonAdaptedEvent {
     private final String startTime;
     private final String endTime;
     private final String location;
-    private final List<JsonAdaptedPerson> personList = new ArrayList<>();
+    private final List<JsonAdaptedContact> contactList = new ArrayList<>();
     private final List<Boolean> markedList = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
@@ -43,15 +43,15 @@ public class JsonAdaptedEvent {
         @JsonProperty("startTime") String startTime,
         @JsonProperty("endTime") String endTime,
         @JsonProperty("location") String location,
-        @JsonProperty("persons") List<JsonAdaptedPerson> personList,
+        @JsonProperty("contacts") List<JsonAdaptedContact> contactList,
         @JsonProperty("markedList") List<Boolean> markedList,
         @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
-        if (personList != null) {
-            this.personList.addAll(personList);
+        if (contactList != null) {
+            this.contactList.addAll(contactList);
         }
         if (markedList != null) {
             this.markedList.addAll(markedList);
@@ -69,8 +69,8 @@ public class JsonAdaptedEvent {
         startTime = source.getStartTime().toString();
         endTime = source.getEndTime().toString();
         location = source.getLocation().toString();
-        personList.addAll(source.getPersons().stream()
-            .map(JsonAdaptedPerson::new)
+        contactList.addAll(source.getContacts().stream()
+            .map(JsonAdaptedContact::new)
             .collect(Collectors.toList()));
         markedList.addAll(source.getMarkedList());
         tags.addAll(source.getTags().stream()
@@ -84,9 +84,9 @@ public class JsonAdaptedEvent {
      * @throws IllegalValueException if there were any data constraints violated in the adapted event.
      */
     public Event toModelType() throws IllegalValueException {
-        final List<Person> eventPersonList = new ArrayList<>();
-        for (JsonAdaptedPerson person : personList) {
-            eventPersonList.add(person.toModelType());
+        final List<Contact> eventContactList = new ArrayList<>();
+        for (JsonAdaptedContact contact : contactList) {
+            eventContactList.add(contact.toModelType());
         }
 
         final Set<Tag> modelTags = new HashSet<>();
@@ -131,6 +131,6 @@ public class JsonAdaptedEvent {
         final EventLocation eventLocation = new EventLocation(location);
 
         return new Event(eventName, eventStartTime, eventEndTime, eventLocation,
-                eventPersonList, markedList, modelTags);
+            eventContactList, markedList, modelTags);
     }
 }

@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
-import static seedu.address.logic.parser.CliSyntax.PERSON_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import java.util.logging.Logger;
@@ -14,9 +14,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.contact.ListContactCommand;
 import seedu.address.logic.commands.event.ListEventCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.person.ListPersonCommand;
 import seedu.address.logic.commands.todo.ListTodoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -28,7 +28,7 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     private enum ViewMode {
-        PERSON, EVENT, TODO
+        CONTACT, EVENT, TODO
     }
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -38,7 +38,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private ListPanel listPanel;
-    private ViewMode currentViewMode = ViewMode.PERSON;
+    private ViewMode currentViewMode = ViewMode.CONTACT;
     private ResultDisplay resultDisplay;
 
     @FXML
@@ -54,7 +54,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private Button personButton;
+    private Button contactButton;
 
     @FXML
     private Button eventButton;
@@ -91,7 +91,7 @@ public class MainWindow extends UiPart<Stage> {
         listPanel = new ListPanel();
         listPanelPlaceholder.getChildren().add(listPanel.getRoot());
 
-        listPanel.setPersonList(logic.getFilteredPersonList());
+        listPanel.setContactList(logic.getFilteredContactList());
         updateButtonStyles();
 
         resultDisplay = new ResultDisplay();
@@ -132,12 +132,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Handles switching to person view
+     * Handles switching to contact view
      */
     @FXML
-    private void handlePersonButton() {
-        currentViewMode = ViewMode.PERSON;
-        listPanel.setPersonList(logic.getFilteredPersonList());
+    private void handleContactButton() {
+        currentViewMode = ViewMode.CONTACT;
+        listPanel.setContactList(logic.getFilteredContactList());
         updateButtonStyles();
     }
 
@@ -170,8 +170,8 @@ public class MainWindow extends UiPart<Stage> {
 
         try {
             switch (currentViewMode) {
-            case PERSON:
-                executeCommand(String.format("%s %s", PERSON_COMMAND_WORD, ListPersonCommand.COMMAND_WORD));
+            case CONTACT:
+                executeCommand(String.format("%s %s", CONTACT_COMMAND_WORD, ListContactCommand.COMMAND_WORD));
                 break;
             case EVENT:
                 executeCommand(String.format("%s %s", EVENT_COMMAND_WORD, ListEventCommand.COMMAND_WORD));
@@ -196,14 +196,14 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void updateButtonStyles() {
         // Remove active class from all buttons
-        personButton.getStyleClass().remove("active-button");
+        contactButton.getStyleClass().remove("active-button");
         eventButton.getStyleClass().remove("active-button");
         todoButton.getStyleClass().remove("active-button");
 
         // Add active class to currently selected button
         switch (currentViewMode) {
-        case PERSON:
-            personButton.getStyleClass().add("active-button");
+        case CONTACT:
+            contactButton.getStyleClass().add("active-button");
             break;
         case EVENT:
             eventButton.getStyleClass().add("active-button");
@@ -246,8 +246,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void refreshCurrentView() {
         switch (currentViewMode) {
-        case PERSON:
-            listPanel.setPersonList(logic.getFilteredPersonList());
+        case CONTACT:
+            listPanel.setContactList(logic.getFilteredContactList());
             break;
         case EVENT:
             listPanel.setEventList(logic.getFilteredEventList());

@@ -48,7 +48,7 @@ public class MarkTodoAsDoneCommand extends EditCommand<Todo> {
                 todoToEdit.getDeadline(),
                 todoToEdit.getLocation(),
                 new TodoStatus(true),
-                todoToEdit.getPersons(),
+                todoToEdit.getContacts(),
                 todoToEdit.getTags()
         );
     }

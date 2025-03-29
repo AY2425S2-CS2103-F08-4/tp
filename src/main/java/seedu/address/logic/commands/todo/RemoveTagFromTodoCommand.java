@@ -2,7 +2,7 @@ package seedu.address.logic.commands.todo;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +13,7 @@ import seedu.address.logic.TodoMessages;
 import seedu.address.logic.abstractcommand.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Tag;
+import seedu.address.model.contact.Tag;
 import seedu.address.model.todo.Todo;
 
 /**
@@ -24,9 +24,9 @@ public class RemoveTagFromTodoCommand extends EditCommand<Todo> {
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
             + ": Removes a tag from a specified todo.\n"
             + "Parameters: INDEX "
-            + PREFIX_TODO_TAG + " <tag>\n"
+            + PREFIX_TODO_TAG_LONG + " <tag>\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_TODO_TAG + " important ";
+            + PREFIX_TODO_TAG_LONG + " important ";
     public static final String MESSAGE_REMOVE_TAG_SUCCESS = "Removed tag from todo: %1$s";
     public static final String MESSAGE_NO_TAG_PRESENT = "The tag is already removed from this todo.";
 
@@ -53,7 +53,7 @@ public class RemoveTagFromTodoCommand extends EditCommand<Todo> {
                 todoToEdit.getDeadline(),
                 todoToEdit.getLocation(),
                 todoToEdit.getStatus(),
-                todoToEdit.getPersons(),
+                todoToEdit.getContacts(),
                 Set.copyOf(newTags)
         );
     }

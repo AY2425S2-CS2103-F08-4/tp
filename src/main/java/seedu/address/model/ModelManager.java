@@ -8,11 +8,11 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactManagerWithFilteredList;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.item.ItemManagerWithFilteredList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.PersonManagerWithFilteredList;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
 
@@ -24,7 +24,7 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
 
-    private final ItemManagerWithFilteredList<Person> personManagerAndList;
+    private final ItemManagerWithFilteredList<Contact> contactManagerAndList;
     private final ItemManagerWithFilteredList<Todo> todoManagerAndList;
     private final ItemManagerWithFilteredList<Event> eventManagerAndList;
 
@@ -32,18 +32,18 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given managers with lists and userPrefs.
      */
     public ModelManager(ReadOnlyUserPrefs userPrefs,
-                        ItemManagerWithFilteredList<Person> personManagerAndList,
+                        ItemManagerWithFilteredList<Contact> contactManagerAndList,
                         ItemManagerWithFilteredList<Todo> todoManagerAndList,
                         ItemManagerWithFilteredList<Event> eventManagerAndList) {
-        requireAllNonNull(userPrefs, personManagerAndList, todoManagerAndList, eventManagerAndList);
+        requireAllNonNull(userPrefs, contactManagerAndList, todoManagerAndList, eventManagerAndList);
 
-        logger.fine("Initializing with person manager: " + personManagerAndList
+        logger.fine("Initializing with contact manager: " + contactManagerAndList
                 + ", todo manager: " + todoManagerAndList
                 + ", event manager: " + eventManagerAndList
                 + ", and user prefs " + userPrefs);
 
         this.userPrefs = new UserPrefs(userPrefs);
-        this.personManagerAndList = personManagerAndList;
+        this.contactManagerAndList = contactManagerAndList;
         this.todoManagerAndList = todoManagerAndList;
         this.eventManagerAndList = eventManagerAndList;
     }
@@ -52,7 +52,7 @@ public class ModelManager implements Model {
      * Initializes a default ModelManager.
      */
     public ModelManager() {
-        this(new UserPrefs(), new PersonManagerWithFilteredList(),
+        this(new UserPrefs(), new ContactManagerWithFilteredList(),
                 new TodoManagerWithFilteredList(), new EventManagerWithFilteredList());
     }
 
@@ -112,8 +112,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ItemManagerWithFilteredList<Person> getPersonManagerAndList() {
-        return personManagerAndList;
+    public ItemManagerWithFilteredList<Contact> getContactManagerAndList() {
+        return contactManagerAndList;
     }
 
     @Override
@@ -138,7 +138,7 @@ public class ModelManager implements Model {
         }
 
         return userPrefs.equals(otherModelManager.userPrefs)
-                && personManagerAndList.equals(otherModelManager.personManagerAndList)
+                && contactManagerAndList.equals(otherModelManager.contactManagerAndList)
                 && todoManagerAndList.equals(otherModelManager.todoManagerAndList)
                 && eventManagerAndList.equals(otherModelManager.eventManagerAndList);
     }

@@ -1,0 +1,11 @@
+{
+  "contacts": [ {
+    "name": "Valid Contact",
+    "email": "hans@example.com",
+    "address": "4th street"
+  }, {
+    "name": "Contact With Invalid Email Field",
+    "email": "thisisnotanemailaddress",
+    "address": "4th street"
+  } ]
+}

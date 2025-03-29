@@ -1,12 +1,12 @@
 package seedu.address.logic.commands.event;
 
-import static seedu.address.logic.EventMessages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.logic.EventMessages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_END_DATETIME;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCATION;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_LINKED_PERSON_INDEX;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_START_DATETIME;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_END_LONG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKED_CONTACT_LONG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCATION_LONG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME_LONG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_START_LONG;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,13 +20,13 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.abstractcommand.FilterCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.predicate.EventContactPredicate;
 import seedu.address.model.event.predicate.EventEndTimePredicate;
 import seedu.address.model.event.predicate.EventLocationPredicate;
 import seedu.address.model.event.predicate.EventNamePredicate;
-import seedu.address.model.event.predicate.EventPersonPredicate;
 import seedu.address.model.event.predicate.EventStartTimePredicate;
-import seedu.address.model.person.Person;
 
 /**
  * Filters and lists all events based on specified criteria.
@@ -40,9 +40,9 @@ public class FilterEventCommand extends FilterCommand<Event> {
             + ": Filters events based on specified criteria.\n"
             + "Parameters: COL/ [<OP>:] <VALUE(s)> [...]\n"
 
-            + "- COL/ : Column to filter on (" + PREFIX_EVENT_NAME + ", " + PREFIX_START_DATETIME
-            + ", " + PREFIX_END_DATETIME + ", " + PREFIX_EVENT_LOCATION + ", "
-            + PREFIX_LINKED_PERSON_INDEX + ")\n"
+            + "- COL/ : Column to filter on (" + PREFIX_EVENT_NAME_LONG + ", " + PREFIX_EVENT_START_LONG
+            + ", " + PREFIX_EVENT_END_LONG + ", " + PREFIX_EVENT_LOCATION_LONG + ", "
+            + PREFIX_EVENT_LINKED_CONTACT_LONG + ")\n"
 
             + "- <OP>: : Operator (and, or, nand, nor) to apply to the column criterion. Defaults"
             + " to 'and' if not specified.\n"
@@ -54,24 +54,24 @@ public class FilterEventCommand extends FilterCommand<Event> {
             + "interval start and end can be in the format YY-MM-DD HH:MM, where HH is in 24-hour "
             + "format, or can be - to specify no lower bound or upper bound. At least one of the "
             + "two bounds must be specified.\n"
-            + "    + For linked persons, use the indices in the currently displayed person list.\n"
+            + "    + For linked contacts, use the indices in the currently displayed contact list.\n"
 
             + "Examples:\n"
 
-            + "1. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_EVENT_NAME + " or: "
+            + "1. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_EVENT_NAME_LONG + " or: "
             + "Exam PRESENTATION\n"
             + "   Find todos whose name contains at least one of the keywords \"exam\" or "
             + "\"presentation.\"\n"
 
-            + "2. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_EVENT_NAME
-            + "CS1010S eXAM " + PREFIX_START_DATETIME + "or: (25-03-13 23:59/25-03-20 23:59) "
+            + "2. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_EVENT_NAME_LONG
+            + "CS1010S eXAM " + PREFIX_EVENT_START_LONG + "or: (25-03-13 23:59/25-03-20 23:59) "
             + "(25-03-27 23:59/-)\n"
             + "   Find todos whose name contains both the keywords \"CS1010S\" and "
             + "\"exam\" and whose start time is between 25-03-13 23:59 and 25-03-20 23:59 "
             + "inclusive or not before 25-03-27 23:59.\n"
 
-            + "3. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_EVENT_LOCATION
-            + "nand: NUS Home " + PREFIX_LINKED_PERSON_INDEX + "1 2 3\n"
+            + "3. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_EVENT_LOCATION_LONG
+            + "nand: NUS Home " + PREFIX_EVENT_LINKED_CONTACT_LONG + "1 2 3\n"
             + "   Find todos whose location does not contain the keywords \"NUS\" or "
             + "\"home\" and which are is linked to the people currently at index 1, 2 and 3.\n";
 
@@ -104,8 +104,8 @@ public class FilterEventCommand extends FilterCommand<Event> {
         private EventStartTimePredicate startTimePredicate;
         private EventEndTimePredicate endTimePredicate;
         private EventLocationPredicate locationPredicate;
-        private Operator personOperator;
-        private List<Index> personIndices;
+        private Operator contactOperator;
+        private List<Index> contactIndices;
 
         public EventPredicate() {
         }
@@ -118,8 +118,8 @@ public class FilterEventCommand extends FilterCommand<Event> {
             setStartTimePredicate(toCopy.startTimePredicate);
             setEndTimePredicate(toCopy.endTimePredicate);
             setLocationPredicate(toCopy.locationPredicate);
-            setPersonOperator(toCopy.personOperator);
-            setPersonIndices(toCopy.personIndices);
+            setContactOperator(toCopy.contactOperator);
+            setContactIndices(toCopy.contactIndices);
         }
 
         /**
@@ -127,7 +127,7 @@ public class FilterEventCommand extends FilterCommand<Event> {
          */
         public boolean isAnyFieldNonNull() {
             return CollectionUtil.isAnyNonNull(namePredicate, startTimePredicate, endTimePredicate,
-                    locationPredicate, personIndices);
+                    locationPredicate, contactIndices);
         }
 
         public void setNamePredicate(EventNamePredicate namePredicate) {
@@ -162,50 +162,50 @@ public class FilterEventCommand extends FilterCommand<Event> {
             return Optional.ofNullable(locationPredicate);
         }
 
-        public Optional<Operator> getPersonOperator() {
-            return Optional.ofNullable(personOperator);
+        public Optional<Operator> getContactOperator() {
+            return Optional.ofNullable(contactOperator);
         }
 
-        public void setPersonOperator(Operator personOperator) {
-            this.personOperator = personOperator;
+        public void setContactOperator(Operator contactOperator) {
+            this.contactOperator = contactOperator;
         }
 
-        public Optional<List<Index>> getPersonIndices() {
-            return (personIndices != null) ? Optional.of(List.copyOf(personIndices))
+        public Optional<List<Index>> getContactIndices() {
+            return (contactIndices != null) ? Optional.of(List.copyOf(contactIndices))
                     : Optional.empty();
         }
 
-        public void setPersonIndices(List<Index> personIndices) {
-            this.personIndices = (personIndices != null) ? List.copyOf(personIndices) : null;
+        public void setContactIndices(List<Index> contactIndices) {
+            this.contactIndices = (contactIndices != null) ? List.copyOf(contactIndices) : null;
         }
 
         public Predicate<Event> getPredicate(Model model) throws CommandException {
-            Predicate<Event> personPredicate;
-            if (personIndices != null) {
-                List<Person> filteredPersons = model.getPersonManagerAndList()
+            Predicate<Event> contactPredicate;
+            if (contactIndices != null) {
+                List<Contact> filteredContacts = model.getContactManagerAndList()
                         .getFilteredItemsList();
 
-                for (Index index : personIndices) {
-                    if (index.getZeroBased() >= filteredPersons.size()) {
+                for (Index index : contactIndices) {
+                    if (index.getZeroBased() >= filteredContacts.size()) {
                         throw new CommandException(String.format(
-                                MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, index.getOneBased()));
+                                MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX, index.getOneBased()));
                     }
                 }
 
-                List<Person> persons = personIndices.stream()
-                        .map(index -> filteredPersons.get(index.getZeroBased())).toList();
+                List<Contact> contacts = contactIndices.stream()
+                        .map(index -> filteredContacts.get(index.getZeroBased())).toList();
 
-                personPredicate =
-                        event -> new EventPersonPredicate(personOperator, persons).test(event);
+                contactPredicate =
+                        event -> new EventContactPredicate(contactOperator, contacts).test(event);
             } else {
-                personPredicate = unused -> true;
+                contactPredicate = unused -> true;
             }
 
             return event -> (namePredicate == null || namePredicate.test(event))
                     && (startTimePredicate == null || startTimePredicate.test(event))
                     && (endTimePredicate == null || endTimePredicate.test(event))
                     && (locationPredicate == null || locationPredicate.test(event))
-                    && (personPredicate.test(event));
+                    && (contactPredicate.test(event));
         }
 
         @Override
@@ -215,11 +215,10 @@ public class FilterEventCommand extends FilterCommand<Event> {
                     .add("startTimePredicate", startTimePredicate)
                     .add("endTimePredicate", endTimePredicate)
                     .add("locationPredicate", locationPredicate)
-                    .add("personOperator", personOperator)
-                    .add("personIndices", personIndices)
+                    .add("contactOperator", contactOperator)
+                    .add("contactIndices", contactIndices)
                     .toString();
         }
 
     }
 }
-

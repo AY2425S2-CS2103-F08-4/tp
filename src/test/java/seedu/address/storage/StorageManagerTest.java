@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 
 import java.nio.file.Path;
 
@@ -12,11 +12,11 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactManager;
 import seedu.address.model.item.ItemManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.PersonManager;
+import seedu.address.storage.contact.JsonContactStorage;
 import seedu.address.storage.event.JsonEventStorage;
-import seedu.address.storage.person.JsonPersonStorage;
 import seedu.address.storage.todo.JsonTodoStorage;
 
 public class StorageManagerTest {
@@ -28,7 +28,7 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonPersonStorage addressBookStorage = new JsonPersonStorage(getTempFilePath("ab"));
+        JsonContactStorage addressBookStorage = new JsonContactStorage(getTempFilePath("ab"));
         JsonTodoStorage todoStorage = new JsonTodoStorage(getTempFilePath("ab"));
         JsonEventStorage eventStorage = new JsonEventStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
@@ -60,10 +60,10 @@ public class StorageManagerTest {
          * {@link JsonAddressBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
-        PersonManager original = getTypicalAddressBook();
+        ContactManager original = getTypicalAddressBook();
         storageManager.saveAddressBook(original);
-        ItemManager<Person> retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new PersonManager(retrieved));
+        ItemManager<Contact> retrieved = storageManager.readAddressBook().get();
+        assertEquals(original, new ContactManager(retrieved));
     }
 
     @Test

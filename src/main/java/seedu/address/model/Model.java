@@ -4,9 +4,9 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 import seedu.address.model.item.ItemManagerWithFilteredList;
-import seedu.address.model.person.Person;
 import seedu.address.model.todo.Todo;
 
 /**
@@ -14,7 +14,7 @@ import seedu.address.model.todo.Todo;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
     Predicate<Todo> PREDICATE_SHOW_ALL_TODOS = unused -> true;
 
@@ -69,9 +69,9 @@ public interface Model {
     void setEventListFilePath(Path addressBookFilePath);
 
     /**
-     * Returns the person manager and display list.
+     * Returns the contact manager and display list.
      */
-    ItemManagerWithFilteredList<Person> getPersonManagerAndList();
+    ItemManagerWithFilteredList<Contact> getContactManagerAndList();
 
     /**
      * Returns the todo manager and display list.

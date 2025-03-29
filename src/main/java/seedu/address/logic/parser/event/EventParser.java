@@ -10,17 +10,17 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.event.AddContactToEventCommand;
+import seedu.address.logic.commands.event.AddContactToLogEventCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
-import seedu.address.logic.commands.event.AddPersonToEventCommand;
-import seedu.address.logic.commands.event.AddPersonToLogEventCommand;
 import seedu.address.logic.commands.event.AddTagToEventCommand;
 import seedu.address.logic.commands.event.ClearEventCommand;
 import seedu.address.logic.commands.event.DeleteEventCommand;
 import seedu.address.logic.commands.event.DisplayEventInformationCommand;
 import seedu.address.logic.commands.event.FilterEventCommand;
 import seedu.address.logic.commands.event.ListEventCommand;
-import seedu.address.logic.commands.event.RemovePersonFromEventCommand;
-import seedu.address.logic.commands.event.RemovePersonFromLogEventCommand;
+import seedu.address.logic.commands.event.RemoveContactFromEventCommand;
+import seedu.address.logic.commands.event.RemoveContactFromLogEventCommand;
 import seedu.address.logic.commands.event.RemoveTagFromEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -71,17 +71,17 @@ public class EventParser {
         case DeleteEventCommand.COMMAND_WORD:
             return new DeleteEventCommandParser().parse(arguments);
 
-        case AddPersonToEventCommand.COMMAND_WORD:
-            return new AddPersonToEventCommandParser().parse(arguments);
+        case AddContactToEventCommand.COMMAND_WORD:
+            return new AddContactToEventCommandParser().parse(arguments);
 
-        case RemovePersonFromEventCommand.COMMAND_WORD:
-            return new RemovePersonFromEventCommandParser().parse(arguments);
+        case RemoveContactFromEventCommand.COMMAND_WORD:
+            return new RemoveContactFromEventCommandParser().parse(arguments);
 
-        case AddPersonToLogEventCommand.COMMAND_WORD:
-            return new AddPersonToLogEventCommandParser().parse(arguments);
+        case AddContactToLogEventCommand.COMMAND_WORD:
+            return new AddContactToLogEventCommandParser().parse(arguments);
 
-        case RemovePersonFromLogEventCommand.COMMAND_WORD:
-            return new RemovePersonFromLogEventCommandParser().parse(arguments);
+        case RemoveContactFromLogEventCommand.COMMAND_WORD:
+            return new RemoveContactFromLogEventCommandParser().parse(arguments);
 
         case FilterEventCommand.COMMAND_WORD:
             return new FilterEventCommandParser().parse(arguments);

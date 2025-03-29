@@ -10,32 +10,32 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Tag;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Tag;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoDeadline;
 import seedu.address.model.todo.TodoLocation;
 import seedu.address.model.todo.TodoName;
 import seedu.address.model.todo.TodoStatus;
-import seedu.address.storage.person.JsonAdaptedPerson;
-import seedu.address.storage.person.JsonAdaptedTag;
+import seedu.address.storage.contact.JsonAdaptedContact;
+import seedu.address.storage.contact.JsonAdaptedTag;
 
 /**
- * Jackson-friendly version of {@link Person}.
+ * Jackson-friendly version of {@link Contact}.
  */
 public class JsonAdaptedTodo {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Contact's %s field is missing!";
 
     private final String name;
     private final String deadline;
     private final String location;
     private final boolean status;
-    private final List<JsonAdaptedPerson> personList = new ArrayList<>();
+    private final List<JsonAdaptedContact> contactList = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedContact} with the given contact details.
      */
     @JsonCreator
     public JsonAdaptedTodo(
@@ -43,14 +43,14 @@ public class JsonAdaptedTodo {
             @JsonProperty("deadline") String deadline,
             @JsonProperty("location") String location,
             @JsonProperty("status") boolean status,
-            @JsonProperty("persons") List<JsonAdaptedPerson> personList,
+            @JsonProperty("contacts") List<JsonAdaptedContact> contactList,
             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.deadline = deadline;
         this.location = location;
         this.status = status;
-        if (personList != null) {
-            this.personList.addAll(personList);
+        if (contactList != null) {
+            this.contactList.addAll(contactList);
         }
         if (tags != null) {
             this.tags.addAll(tags);
@@ -58,15 +58,15 @@ public class JsonAdaptedTodo {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Contact} into this class for Jackson use.
      */
     public JsonAdaptedTodo(Todo source) {
         name = source.getName().toString();
         deadline = source.getDeadline().toString();
         location = source.getLocation().toString();
         status = source.getStatus().isDone();
-        personList.addAll(source.getPersons().stream()
-                .map(JsonAdaptedPerson::new)
+        contactList.addAll(source.getContacts().stream()
+                .map(JsonAdaptedContact::new)
                 .collect(Collectors.toList()));
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -74,14 +74,14 @@ public class JsonAdaptedTodo {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted contact object into the model's {@code Contact} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted contact.
      */
     public Todo toModelType() throws IllegalValueException {
-        final List<Person> todoPersons = new ArrayList<>();
-        for (JsonAdaptedPerson person : personList) {
-            todoPersons.add(person.toModelType());
+        final List<Contact> todoContacts = new ArrayList<>();
+        for (JsonAdaptedContact contact : contactList) {
+            todoContacts.add(contact.toModelType());
         }
 
         final Set<Tag> modelTags = new HashSet<>();
@@ -119,7 +119,7 @@ public class JsonAdaptedTodo {
         final TodoStatus todoStatus = new TodoStatus(status);
 
         return new Todo(todoName, todoDeadline, todoLocation,
-                todoStatus, todoPersons, modelTags);
+                todoStatus, todoContacts, modelTags);
     }
 
 }

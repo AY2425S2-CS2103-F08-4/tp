@@ -4,21 +4,20 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactManager;
+import seedu.address.model.contact.Course;
+import seedu.address.model.contact.Email;
+import seedu.address.model.contact.Group;
+import seedu.address.model.contact.Id;
+import seedu.address.model.contact.Name;
+import seedu.address.model.contact.Tag;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDateTime;
 import seedu.address.model.event.EventLocation;
 import seedu.address.model.event.EventManager;
 import seedu.address.model.event.EventName;
 import seedu.address.model.item.ItemManager;
-import seedu.address.model.person.Course;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Group;
-import seedu.address.model.person.Id;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.PersonManager;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Tag;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoDeadline;
 import seedu.address.model.todo.TodoLocation;
@@ -30,29 +29,29 @@ import seedu.address.model.todo.TodoName;
  */
 public class SampleDataUtil {
 
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Id("A0123456X"), new Name("Alex Yeoh"), new Phone("87438807"),
+    public static Contact[] getSampleContacts() {
+        return new Contact[] {
+            new Contact(new Id("A0123456X"), new Name("Alex Yeoh"),
                 new Email("alexyeoh@example.com"),
                 new Course("CS1010S"), new Group("T01"),
                 getTagSet("friends")),
-            new Person(new Id("A1234567Y"), new Name("Bernice Yu"), new Phone("99272758"),
+            new Contact(new Id("A1234567Y"), new Name("Bernice Yu"),
                 new Email("berniceyu@example.com"),
                 new Course("CS1010S"), new Group("R01"),
                 getTagSet("colleagues", "friends")),
-            new Person(new Id("A2345678Z"), new Name("Charlotte Oliveiro"),
-                new Phone("93210283"), new Email("charlotte@example.com"),
+            new Contact(new Id("A2345678Z"), new Name("Charlotte Oliveiro"),
+                new Email("charlotte@example.com"),
                 new Course("CS2103"), new Group("F08"),
                 getTagSet("neighbours")),
-            new Person(new Id("A3456789G"), new Name("David Li"), new Phone("91031282"),
+            new Contact(new Id("A3456789G"), new Name("David Li"),
                 new Email("lidavid@example.com"),
                 new Course("CS2030"), new Group("F10"),
                 getTagSet("family")),
-            new Person(new Id("A4567890H"), new Name("Irfan Ibrahim"), new Phone("92492021"),
+            new Contact(new Id("A4567890H"), new Name("Irfan Ibrahim"),
                 new Email("irfan@example.com"),
                 new Course("CS2040"), new Group("T10"),
                 getTagSet("classmates")),
-            new Person(new Id("A5678901K"), new Name("Roy Balakrishnan"), new Phone("92624417"),
+            new Contact(new Id("A5678901K"), new Name("Roy Balakrishnan"),
                 new Email("royb@example.com"),
                 new Course("CS1010S"), new Group("T28"),
                 getTagSet("colleagues"))
@@ -93,10 +92,10 @@ public class SampleDataUtil {
         };
     }
 
-    public static ItemManager<Person> getSampleAddressBook() {
-        PersonManager sampleAb = new PersonManager();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addItem(samplePerson);
+    public static ItemManager<Contact> getSampleAddressBook() {
+        ContactManager sampleAb = new ContactManager();
+        for (Contact sampleContact : getSampleContacts()) {
+            sampleAb.addItem(sampleContact);
         }
         return sampleAb;
     }

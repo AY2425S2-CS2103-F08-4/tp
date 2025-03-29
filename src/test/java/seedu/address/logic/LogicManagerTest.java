@@ -6,10 +6,9 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.GROUP_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ID_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.parser.CliSyntax.PERSON_COMMAND_WORD;
+import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalContacts.AMY;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
@@ -20,23 +19,23 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.contact.AddContactCommand;
+import seedu.address.logic.commands.contact.ListContactCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.person.AddPersonCommand;
-import seedu.address.logic.commands.person.ListPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 import seedu.address.model.item.ItemManager;
-import seedu.address.model.person.Person;
 import seedu.address.model.todo.Todo;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.contact.JsonContactStorage;
 import seedu.address.storage.event.JsonEventStorage;
-import seedu.address.storage.person.JsonPersonStorage;
 import seedu.address.storage.todo.JsonTodoStorage;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ContactBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy IO exception");
@@ -50,8 +49,8 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonPersonStorage addressBookStorage =
-                new JsonPersonStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonContactStorage addressBookStorage =
+                new JsonContactStorage(temporaryFolder.resolve("addressBook.json"));
         JsonTodoStorage todoStorage =
                 new JsonTodoStorage(temporaryFolder.resolve("todolist.json"));
         JsonEventStorage eventStorage =
@@ -76,8 +75,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = PERSON_COMMAND_WORD + " " + ListPersonCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListPersonCommand.MESSAGE_SUCCESS, model);
+        String listCommand = CONTACT_COMMAND_WORD + " " + ListContactCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListContactCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
@@ -93,8 +92,8 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    public void getFilteredContactList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredContactList().remove(0));
     }
 
     /**
@@ -124,7 +123,7 @@ public class LogicManagerTest {
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandException(String inputCommand) {
-        assertCommandFailure(inputCommand, CommandException.class, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(inputCommand, CommandException.class, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
     /**
@@ -135,7 +134,7 @@ public class LogicManagerTest {
             String expectedMessage) {
         Model expectedModel = new ModelManager(
                 new UserPrefs(),
-                model.getPersonManagerAndList(),
+                model.getContactManagerAndList(),
                 model.getTodoManagerAndList(),
                 model.getEventManagerAndList()
         );
@@ -165,9 +164,9 @@ public class LogicManagerTest {
         Path prefPath = temporaryFolder.resolve("ExceptionUserPrefs.json");
 
         // Inject LogicManager with an AddressBookStorage that throws the IOException e when saving
-        JsonPersonStorage addressBookStorage = new JsonPersonStorage(prefPath) {
+        JsonContactStorage addressBookStorage = new JsonContactStorage(prefPath) {
             @Override
-            public void saveAddressBook(ItemManager<Person> addressBook, Path filePath)
+            public void saveAddressBook(ItemManager<Contact> addressBook, Path filePath)
                     throws IOException {
                 throw e;
             }
@@ -194,11 +193,11 @@ public class LogicManagerTest {
 
         // Triggers the saveAddressBook method by executing an add command
         String addCommand =
-                PERSON_COMMAND_WORD + " " + AddPersonCommand.COMMAND_WORD + ID_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY
+                CONTACT_COMMAND_WORD + " " + AddContactCommand.COMMAND_WORD + ID_DESC_AMY + NAME_DESC_AMY
                 + EMAIL_DESC_AMY + COURSE_DESC_AMY + GROUP_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        Contact expectedContact = new ContactBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.getPersonManagerAndList().addItem(expectedPerson);
+        expectedModel.getContactManagerAndList().addItem(expectedContact);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 }

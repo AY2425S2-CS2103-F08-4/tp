@@ -8,9 +8,9 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Tag;
 import seedu.address.model.item.Item;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Tag;
 
 /**
  * Represents an Event.
@@ -21,7 +21,7 @@ public class Event implements Item {
     private final EventDateTime startTime;
     private final EventDateTime endTime;
     private final EventLocation location;
-    private final List<Person> persons;
+    private final List<Contact> contacts;
     private final List<Boolean> markedList;
     private final Set<Tag> tags = new HashSet<>();
 
@@ -29,14 +29,14 @@ public class Event implements Item {
      * Every field must be present and not null, field values are validated, immutable.
      */
     public Event(EventName name, EventDateTime startTime, EventDateTime endTime,
-            EventLocation location, List<Person> persons, List<Boolean> markedList,
-            Set<Tag> tags) {
-        requireAllNonNull(name, startTime, endTime, location, persons, tags);
+                 EventLocation location, List<Contact> contacts, List<Boolean> markedList,
+                 Set<Tag> tags) {
+        requireAllNonNull(name, startTime, endTime, location, contacts, tags);
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
-        this.persons = persons;
+        this.contacts = contacts;
         this.markedList = markedList;
         this.tags.addAll(tags);
     }
@@ -51,7 +51,7 @@ public class Event implements Item {
         this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
-        this.persons = List.of();
+        this.contacts = List.of();
         this.markedList = List.of();
     }
 
@@ -71,8 +71,8 @@ public class Event implements Item {
         return this.location;
     }
 
-    public List<Person> getPersons() {
-        return this.persons;
+    public List<Contact> getContacts() {
+        return this.contacts;
     }
 
     public List<Boolean> getMarkedList() {
@@ -90,7 +90,7 @@ public class Event implements Item {
                 .add("start_time", startTime)
                 .add("end_time", endTime)
                 .add("location", location)
-                .add("persons", persons)
+                .add("contacts", contacts)
                 .add("marked_contacts", markedList)
                 .add("tags", tags)
                 .toString();
@@ -108,13 +108,13 @@ public class Event implements Item {
                 && this.startTime.equals(otherEvent.startTime)
                 && this.endTime.equals(otherEvent.endTime)
                 && this.location.equals(otherEvent.location)
-                && this.persons.equals(otherEvent.persons)
+                && this.contacts.equals(otherEvent.contacts)
                 && this.markedList.equals(otherEvent.markedList)
                 && this.tags.equals(otherEvent.tags);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, startTime, endTime, location, persons, markedList, tags);
+        return Objects.hash(name, startTime, endTime, location, contacts, markedList, tags);
     }
 }

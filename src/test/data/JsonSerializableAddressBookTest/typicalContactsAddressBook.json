@@ -1,0 +1,53 @@
+{
+  "_comment": "AddressBook save file which contains the same Contact values as in TypicalContacts#getTypicalAddressBook()",
+  "contacts" : [ {
+    "id": "A00000001",
+    "name" : "Alice Pauline",
+    "email" : "alice@example.com",
+    "course" : "CS50",
+    "group" : "T33",
+    "tags" : [ "friends" ]
+  }, {
+    "id": "A00000002",
+    "name" : "Benson Meier",
+    "email" : "johnd@example.com",
+    "course" : "CS50",
+    "group" : "T34",
+    "tags" : [ "owesMoney", "friends" ]
+  }, {
+    "id": "A00000003",
+    "name" : "Carl Kurz",
+    "email" : "heinz@example.com",
+    "course" : "CS60",
+    "group" : "T33",
+    "tags" : [ ]
+  }, {
+    "id": "A00000004",
+    "name" : "Daniel Meier",
+    "email" : "cornelia@example.com",
+    "course" : "CS60",
+    "group" : "T34",
+    "tags" : [ "friends" ]
+  }, {
+    "id": "A00000005",
+    "name" : "Elle Meyer",
+    "email" : "werner@example.com",
+    "course" : "CS60",
+    "group" : "T33",
+    "tags" : [ ]
+  }, {
+    "id": "A00000006",
+    "name" : "Fiona Kunz",
+    "email" : "lydia@example.com",
+    "course" : "CS70",
+    "group" : "T33",
+    "tags" : [ ]
+  }, {
+    "id": "A00000007",
+    "name" : "George Best",
+    "email" : "anna@example.com",
+    "course" : "CS60",
+    "group" : "T34",
+    "tags" : [ ]
+  } ]
+}

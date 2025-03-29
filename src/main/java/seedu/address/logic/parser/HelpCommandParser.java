@@ -1,38 +1,38 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.CliSyntax.BYE_COMMAND_WORD;
+import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.EXIT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.HELP_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.KILL_COMMAND_WORD;
-import static seedu.address.logic.parser.CliSyntax.PERSON_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.QUIT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.contact.AddContactCommand;
+import seedu.address.logic.commands.contact.AddTagToContactCommand;
+import seedu.address.logic.commands.contact.ClearContactCommand;
+import seedu.address.logic.commands.contact.DeleteContactCommand;
+import seedu.address.logic.commands.contact.EditContactCommand;
+import seedu.address.logic.commands.contact.FilterContactCommand;
+import seedu.address.logic.commands.contact.InfoContactCommand;
+import seedu.address.logic.commands.contact.ListContactCommand;
+import seedu.address.logic.commands.contact.RemoveTagFromContactCommand;
+import seedu.address.logic.commands.event.AddContactToEventCommand;
+import seedu.address.logic.commands.event.AddContactToLogEventCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
-import seedu.address.logic.commands.event.AddPersonToEventCommand;
-import seedu.address.logic.commands.event.AddPersonToLogEventCommand;
 import seedu.address.logic.commands.event.AddTagToEventCommand;
 import seedu.address.logic.commands.event.ClearEventCommand;
 import seedu.address.logic.commands.event.DeleteEventCommand;
 import seedu.address.logic.commands.event.DisplayEventInformationCommand;
 import seedu.address.logic.commands.event.FilterEventCommand;
 import seedu.address.logic.commands.event.ListEventCommand;
-import seedu.address.logic.commands.event.RemovePersonFromEventCommand;
-import seedu.address.logic.commands.event.RemovePersonFromLogEventCommand;
+import seedu.address.logic.commands.event.RemoveContactFromEventCommand;
+import seedu.address.logic.commands.event.RemoveContactFromLogEventCommand;
 import seedu.address.logic.commands.event.RemoveTagFromEventCommand;
-import seedu.address.logic.commands.person.AddPersonCommand;
-import seedu.address.logic.commands.person.AddTagToPersonCommand;
-import seedu.address.logic.commands.person.ClearPersonCommand;
-import seedu.address.logic.commands.person.DeletePersonCommand;
-import seedu.address.logic.commands.person.EditPersonCommand;
-import seedu.address.logic.commands.person.FilterPersonCommand;
-import seedu.address.logic.commands.person.InfoPersonCommand;
-import seedu.address.logic.commands.person.ListPersonCommand;
-import seedu.address.logic.commands.person.RemoveTagFromPersonCommand;
-import seedu.address.logic.commands.todo.AddPersonToTodoCommand;
+import seedu.address.logic.commands.todo.AddContactToTodoCommand;
 import seedu.address.logic.commands.todo.AddTagToTodoCommand;
 import seedu.address.logic.commands.todo.AddTodoCommand;
 import seedu.address.logic.commands.todo.ClearTodoCommand;
@@ -42,7 +42,7 @@ import seedu.address.logic.commands.todo.FilterTodoCommand;
 import seedu.address.logic.commands.todo.ListTodoCommand;
 import seedu.address.logic.commands.todo.MarkTodoAsDoneCommand;
 import seedu.address.logic.commands.todo.MarkTodoAsNotDoneCommand;
-import seedu.address.logic.commands.todo.RemovePersonFromTodoCommand;
+import seedu.address.logic.commands.todo.RemoveContactFromTodoCommand;
 import seedu.address.logic.commands.todo.RemoveTagFromTodoCommand;
 
 /**
@@ -50,7 +50,7 @@ import seedu.address.logic.commands.todo.RemoveTagFromTodoCommand;
  *
  * <p>
  * This parser handles the "help" command and its subcommands for different feature categories:
- * - Person: Manages your contacts.
+ * - Contact: Manages your contacts.
  * - Todo: Manages your todos.
  * - Event: Manages your events.
  *
@@ -63,17 +63,17 @@ import seedu.address.logic.commands.todo.RemoveTagFromTodoCommand;
 public class HelpCommandParser implements Parser<HelpCommand> {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Feature not recognized.\n" + HelpCommand.MESSAGE_USAGE;
-    public static final String MESSAGE_PERSON_COMMANDS = PERSON_COMMAND_WORD
+    public static final String MESSAGE_CONTACT_COMMANDS = CONTACT_COMMAND_WORD
         + ": Manages your contacts. Supported subcommands:\n"
-        + AddPersonCommand.COMMAND_WORD + ", "
-        + EditPersonCommand.COMMAND_WORD + ", "
-        + DeletePersonCommand.COMMAND_WORD + ", "
-        + ClearPersonCommand.COMMAND_WORD + ", "
-        + FilterPersonCommand.COMMAND_WORD + ", "
-        + ListPersonCommand.COMMAND_WORD + ", "
-        + InfoPersonCommand.COMMAND_WORD + ", "
-        + AddTagToPersonCommand.COMMAND_WORD + ", "
-        + RemoveTagFromPersonCommand.COMMAND_WORD;
+        + AddContactCommand.COMMAND_WORD + ", "
+        + EditContactCommand.COMMAND_WORD + ", "
+        + DeleteContactCommand.COMMAND_WORD + ", "
+        + ClearContactCommand.COMMAND_WORD + ", "
+        + FilterContactCommand.COMMAND_WORD + ", "
+        + ListContactCommand.COMMAND_WORD + ", "
+        + InfoContactCommand.COMMAND_WORD + ", "
+        + AddTagToContactCommand.COMMAND_WORD + ", "
+        + RemoveTagFromContactCommand.COMMAND_WORD;
 
     public static final String MESSAGE_TODO_COMMANDS = TODO_COMMAND_WORD
         + ": Manages your todos. Supported subcommands:\n"
@@ -81,8 +81,8 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         + DeleteTodoCommand.COMMAND_WORD + ", "
         + DisplayTodoInformationCommand.COMMAND_WORD + ", "
         + ListTodoCommand.COMMAND_WORD + ", "
-        + AddPersonToTodoCommand.COMMAND_WORD + ", "
-        + RemovePersonFromTodoCommand.COMMAND_WORD + ", "
+        + AddContactToTodoCommand.COMMAND_WORD + ", "
+        + RemoveContactFromTodoCommand.COMMAND_WORD + ", "
         + MarkTodoAsDoneCommand.COMMAND_WORD + ", "
         + MarkTodoAsNotDoneCommand.COMMAND_WORD + ", "
         + AddTagToTodoCommand.COMMAND_WORD + ", "
@@ -97,12 +97,12 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         + DisplayEventInformationCommand.COMMAND_WORD + ", "
         + ListEventCommand.COMMAND_WORD + ", "
         + FilterEventCommand.COMMAND_WORD + ", "
-        + AddPersonToEventCommand.COMMAND_WORD + ", "
-        + RemovePersonFromEventCommand.COMMAND_WORD + ", "
+        + AddContactToEventCommand.COMMAND_WORD + ", "
+        + RemoveContactFromEventCommand.COMMAND_WORD + ", "
         + AddTagToEventCommand.COMMAND_WORD + ", "
         + RemoveTagFromEventCommand.COMMAND_WORD + ", "
-        + AddPersonToLogEventCommand.COMMAND_WORD + ", "
-        + RemovePersonFromLogEventCommand.COMMAND_WORD + ", "
+        + AddContactToLogEventCommand.COMMAND_WORD + ", "
+        + RemoveContactFromLogEventCommand.COMMAND_WORD + ", "
         + ClearEventCommand.COMMAND_WORD;
 
     /**
@@ -137,8 +137,8 @@ public class HelpCommandParser implements Parser<HelpCommand> {
 
         // Check that top level command is valid
         switch (command) {
-        case PERSON_COMMAND_WORD:
-            return parsePersonHelp(subcommand);
+        case CONTACT_COMMAND_WORD:
+            return parseContactHelp(subcommand);
         case TODO_COMMAND_WORD:
             return parseTodoHelp(subcommand);
         case EVENT_COMMAND_WORD:
@@ -157,32 +157,32 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         }
     }
 
-    private HelpCommand parsePersonHelp(String subcommand) {
+    private HelpCommand parseContactHelp(String subcommand) {
         if (subcommand.trim().isEmpty()) {
-            return new HelpCommand(MESSAGE_PERSON_COMMANDS);
+            return new HelpCommand(MESSAGE_CONTACT_COMMANDS);
         }
 
         switch (subcommand) {
-        case AddPersonCommand.COMMAND_WORD:
-            return new HelpCommand(AddPersonCommand.MESSAGE_USAGE);
-        case EditPersonCommand.COMMAND_WORD:
-            return new HelpCommand(EditPersonCommand.MESSAGE_USAGE);
-        case DeletePersonCommand.COMMAND_WORD:
-            return new HelpCommand(DeletePersonCommand.MESSAGE_USAGE);
-        case ClearPersonCommand.COMMAND_WORD:
-            return new HelpCommand(ClearPersonCommand.MESSAGE_USAGE);
-        case FilterPersonCommand.COMMAND_WORD:
-            return new HelpCommand(FilterPersonCommand.MESSAGE_USAGE);
-        case ListPersonCommand.COMMAND_WORD:
-            return new HelpCommand(ListPersonCommand.MESSAGE_USAGE);
-        case InfoPersonCommand.COMMAND_WORD:
-            return new HelpCommand(InfoPersonCommand.MESSAGE_USAGE);
-        case AddTagToPersonCommand.COMMAND_WORD:
-            return new HelpCommand(AddTagToPersonCommand.MESSAGE_USAGE);
-        case RemoveTagFromPersonCommand.COMMAND_WORD:
-            return new HelpCommand(RemoveTagFromPersonCommand.MESSAGE_USAGE);
+        case AddContactCommand.COMMAND_WORD:
+            return new HelpCommand(AddContactCommand.MESSAGE_USAGE);
+        case EditContactCommand.COMMAND_WORD:
+            return new HelpCommand(EditContactCommand.MESSAGE_USAGE);
+        case DeleteContactCommand.COMMAND_WORD:
+            return new HelpCommand(DeleteContactCommand.MESSAGE_USAGE);
+        case ClearContactCommand.COMMAND_WORD:
+            return new HelpCommand(ClearContactCommand.MESSAGE_USAGE);
+        case FilterContactCommand.COMMAND_WORD:
+            return new HelpCommand(FilterContactCommand.MESSAGE_USAGE);
+        case ListContactCommand.COMMAND_WORD:
+            return new HelpCommand(ListContactCommand.MESSAGE_USAGE);
+        case InfoContactCommand.COMMAND_WORD:
+            return new HelpCommand(InfoContactCommand.MESSAGE_USAGE);
+        case AddTagToContactCommand.COMMAND_WORD:
+            return new HelpCommand(AddTagToContactCommand.MESSAGE_USAGE);
+        case RemoveTagFromContactCommand.COMMAND_WORD:
+            return new HelpCommand(RemoveTagFromContactCommand.MESSAGE_USAGE);
         default:
-            return new HelpCommand("Subcommand " + subcommand + " not recognized.\n" + MESSAGE_PERSON_COMMANDS);
+            return new HelpCommand("Subcommand " + subcommand + " not recognized.\n" + MESSAGE_CONTACT_COMMANDS);
         }
     }
 
@@ -201,10 +201,10 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             return new HelpCommand(DisplayTodoInformationCommand.MESSAGE_USAGE);
         case ListTodoCommand.COMMAND_WORD:
             return new HelpCommand(ListTodoCommand.MESSAGE_USAGE);
-        case AddPersonToTodoCommand.COMMAND_WORD:
-            return new HelpCommand(AddPersonToTodoCommand.MESSAGE_USAGE);
-        case RemovePersonFromTodoCommand.COMMAND_WORD:
-            return new HelpCommand(RemovePersonFromTodoCommand.MESSAGE_USAGE);
+        case AddContactToTodoCommand.COMMAND_WORD:
+            return new HelpCommand(AddContactToTodoCommand.MESSAGE_USAGE);
+        case RemoveContactFromTodoCommand.COMMAND_WORD:
+            return new HelpCommand(RemoveContactFromTodoCommand.MESSAGE_USAGE);
         case MarkTodoAsDoneCommand.COMMAND_WORD:
             return new HelpCommand(MarkTodoAsDoneCommand.MESSAGE_USAGE);
         case MarkTodoAsNotDoneCommand.COMMAND_WORD:
@@ -237,14 +237,14 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             return new HelpCommand(DisplayEventInformationCommand.MESSAGE_USAGE);
         case ListEventCommand.COMMAND_WORD:
             return new HelpCommand(ListEventCommand.MESSAGE_USAGE);
-        case AddPersonToEventCommand.COMMAND_WORD:
-            return new HelpCommand(AddPersonToEventCommand.MESSAGE_USAGE);
-        case RemovePersonFromEventCommand.COMMAND_WORD:
-            return new HelpCommand(RemovePersonFromEventCommand.MESSAGE_USAGE);
-        case AddPersonToLogEventCommand.COMMAND_WORD:
-            return new HelpCommand(AddPersonToLogEventCommand.MESSAGE_USAGE);
-        case RemovePersonFromLogEventCommand.COMMAND_WORD:
-            return new HelpCommand(RemovePersonFromLogEventCommand.MESSAGE_USAGE);
+        case AddContactToEventCommand.COMMAND_WORD:
+            return new HelpCommand(AddContactToEventCommand.MESSAGE_USAGE);
+        case RemoveContactFromEventCommand.COMMAND_WORD:
+            return new HelpCommand(RemoveContactFromEventCommand.MESSAGE_USAGE);
+        case AddContactToLogEventCommand.COMMAND_WORD:
+            return new HelpCommand(AddContactToLogEventCommand.MESSAGE_USAGE);
+        case RemoveContactFromLogEventCommand.COMMAND_WORD:
+            return new HelpCommand(RemoveContactFromLogEventCommand.MESSAGE_USAGE);
         case FilterEventCommand.COMMAND_WORD:
             return new HelpCommand(FilterEventCommand.MESSAGE_USAGE);
         case AddTagToEventCommand.COMMAND_WORD:

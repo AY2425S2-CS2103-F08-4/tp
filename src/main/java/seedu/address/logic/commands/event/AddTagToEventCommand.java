@@ -2,7 +2,7 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_TAG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_TAG_LONG;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,8 +13,8 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.abstractcommand.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.contact.Tag;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Tag;
 
 /**
  * Adds a tag to a specified event
@@ -22,11 +22,11 @@ import seedu.address.model.person.Tag;
 public class AddTagToEventCommand extends EditCommand<Event> {
     public static final String COMMAND_WORD = "tag";
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
-            + ": Adds a tag to a specified event.\n"
-            + "Parameters: INDEX "
-            + PREFIX_EVENT_TAG + " <tag>\n"
-            + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_EVENT_TAG + " TA ";
+        + ": Adds a tag to a specified event.\n"
+        + "Parameters: INDEX "
+        + PREFIX_EVENT_TAG_LONG + " <tag>\n"
+        + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
+        + PREFIX_EVENT_TAG_LONG + " TA ";
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag to event: %1$s";
     public static final String MESSAGE_DUPLICATE_TAGS = "The tag is already assigned to this event";
 
@@ -49,13 +49,13 @@ public class AddTagToEventCommand extends EditCommand<Event> {
         Set<Tag> newTags = new HashSet<>(eventToEdit.getTags());
         newTags.add(this.tag);
         return new Event(
-                eventToEdit.getName(),
-                eventToEdit.getStartTime(),
-                eventToEdit.getEndTime(),
-                eventToEdit.getLocation(),
-                eventToEdit.getPersons(),
-                eventToEdit.getMarkedList(),
-                Set.copyOf(newTags)
+            eventToEdit.getName(),
+            eventToEdit.getStartTime(),
+            eventToEdit.getEndTime(),
+            eventToEdit.getLocation(),
+            eventToEdit.getContacts(),
+            eventToEdit.getMarkedList(),
+            Set.copyOf(newTags)
         );
     }
 

@@ -17,9 +17,9 @@ import static seedu.address.logic.commands.TodoCommandTestUtil.VALID_LOCATION_RE
 import static seedu.address.logic.commands.TodoCommandTestUtil.VALID_NAME_REPORT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
 import static seedu.address.testutil.TypicalTodos.GRADING;
 
 import org.junit.jupiter.api.Test;
@@ -51,44 +51,44 @@ public class AddTodoCommandParserTest {
 
         // multiple names
         assertParseFailure(parser, NAME_DESC_REPORT + validExpectedTodoString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TODO_NAME));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TODO_NAME_LONG));
 
         // multiple deadlines
         assertParseFailure(parser, DEADLINE_DESC_REPORT + validExpectedTodoString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TODO_DEADLINE));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TODO_DEADLINE_LONG));
 
         // multiple locations
         assertParseFailure(parser, LOCATION_DESC_GRADING + validExpectedTodoString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TODO_LOCATION));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TODO_LOCATION_LONG));
 
         // multiple fields repeated
         assertParseFailure(parser,
                 validExpectedTodoString + NAME_DESC_REPORT + DEADLINE_DESC_REPORT
                         + LOCATION_DESC_GRADING + validExpectedTodoString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TODO_NAME, PREFIX_TODO_DEADLINE,
-                        PREFIX_TODO_LOCATION));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TODO_NAME_LONG, PREFIX_TODO_DEADLINE_LONG,
+                        PREFIX_TODO_LOCATION_LONG));
 
         // invalid value followed by valid value
 
         // invalid name
         assertParseFailure(parser, INVALID_TODO_NAME_DESC + validExpectedTodoString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TODO_NAME));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TODO_NAME_LONG));
 
         // invalid email
         assertParseFailure(parser, INVALID_TODO_DEADLINE_DESC_INCORRECT_FORMAT
                         + validExpectedTodoString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TODO_DEADLINE));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TODO_DEADLINE_LONG));
 
         // valid value followed by invalid value
 
         // invalid name
         assertParseFailure(parser, validExpectedTodoString + INVALID_TODO_NAME_DESC,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TODO_NAME));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TODO_NAME_LONG));
 
         // invalid email
         assertParseFailure(parser, validExpectedTodoString
                         + INVALID_TODO_DEADLINE_DESC_INCORRECT_FORMAT,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TODO_DEADLINE));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TODO_DEADLINE_LONG));
     }
 
     @Test
@@ -133,4 +133,3 @@ public class AddTodoCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTodoCommand.MESSAGE_USAGE));
     }
 }
-

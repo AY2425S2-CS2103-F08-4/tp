@@ -1,0 +1,17 @@
+{
+  "contacts": [ {
+    "id": "A00000001",
+    "name" : "Alice Pauline",
+    "email" : "alice@example.com",
+    "course" : "CS50",
+    "group" : "T33",
+    "tags" : [ "friends" ]
+  }, {
+    "id": "A00000001",
+    "name" : "Carl Kurz",
+    "email" : "heinz@example.com",
+    "course" : "CS60",
+    "group" : "T33",
+    "tags" : [ ]
+  } ]
+}

@@ -1,9 +1,9 @@
 package seedu.address.logic.parser.todo;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
 
 import seedu.address.logic.commands.todo.AddTodoCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -26,22 +26,22 @@ public class AddTodoCommandParser implements Parser<AddTodoCommand> {
      * @throws ParseException if the user input does not conform the expected format.
      */
     public AddTodoCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TODO_NAME,
-                PREFIX_TODO_DEADLINE, PREFIX_TODO_LOCATION);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TODO_NAME_LONG,
+            PREFIX_TODO_DEADLINE_LONG, PREFIX_TODO_LOCATION_LONG);
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_TODO_NAME, PREFIX_TODO_DEADLINE,
-                PREFIX_TODO_LOCATION) || !argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_TODO_NAME_LONG, PREFIX_TODO_DEADLINE_LONG,
+            PREFIX_TODO_LOCATION_LONG) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddTodoCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_NAME, PREFIX_TODO_DEADLINE,
-                PREFIX_TODO_LOCATION);
-        TodoName name = TodoParserUtil.parseName(argMultimap.getValue(PREFIX_TODO_NAME).get());
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_NAME_LONG, PREFIX_TODO_DEADLINE_LONG,
+            PREFIX_TODO_LOCATION_LONG);
+        TodoName name = TodoParserUtil.parseName(argMultimap.getValue(PREFIX_TODO_NAME_LONG).get());
         TodoDeadline deadline =
-                TodoParserUtil.parseDeadline(argMultimap.getValue(PREFIX_TODO_DEADLINE).get());
+                TodoParserUtil.parseDeadline(argMultimap.getValue(PREFIX_TODO_DEADLINE_LONG).get());
         TodoLocation location =
-                TodoParserUtil.parseLocation(argMultimap.getValue(PREFIX_TODO_LOCATION).get());
+                TodoParserUtil.parseLocation(argMultimap.getValue(PREFIX_TODO_LOCATION_LONG).get());
 
         Todo todo = new Todo(name, deadline, location);
 

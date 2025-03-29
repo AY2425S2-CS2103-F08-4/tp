@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.todo.AddPersonToTodoCommand;
+import seedu.address.logic.commands.todo.AddContactToTodoCommand;
 import seedu.address.logic.commands.todo.AddTagToTodoCommand;
 import seedu.address.logic.commands.todo.AddTodoCommand;
 import seedu.address.logic.commands.todo.ClearTodoCommand;
@@ -20,7 +20,7 @@ import seedu.address.logic.commands.todo.FilterTodoCommand;
 import seedu.address.logic.commands.todo.ListTodoCommand;
 import seedu.address.logic.commands.todo.MarkTodoAsDoneCommand;
 import seedu.address.logic.commands.todo.MarkTodoAsNotDoneCommand;
-import seedu.address.logic.commands.todo.RemovePersonFromTodoCommand;
+import seedu.address.logic.commands.todo.RemoveContactFromTodoCommand;
 import seedu.address.logic.commands.todo.RemoveTagFromTodoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -72,11 +72,11 @@ public class TodoParser {
         case DeleteTodoCommand.COMMAND_WORD:
             return new DeleteTodoCommandParser().parse(arguments);
 
-        case AddPersonToTodoCommand.COMMAND_WORD:
-            return new AddPersonToTodoCommandParser().parse(arguments);
+        case AddContactToTodoCommand.COMMAND_WORD:
+            return new AddContactToTodoCommandParser().parse(arguments);
 
-        case RemovePersonFromTodoCommand.COMMAND_WORD:
-            return new RemovePersonFromTodoCommandParser().parse(arguments);
+        case RemoveContactFromTodoCommand.COMMAND_WORD:
+            return new RemoveContactFromTodoCommandParser().parse(arguments);
 
         case MarkTodoAsDoneCommand.COMMAND_WORD:
             return new MarkTodoAsDoneCommandParser().parse(arguments);

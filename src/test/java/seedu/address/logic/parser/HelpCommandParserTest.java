@@ -1,16 +1,16 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
-import static seedu.address.logic.parser.CliSyntax.PERSON_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.contact.AddContactCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
-import seedu.address.logic.commands.person.AddPersonCommand;
 import seedu.address.logic.commands.todo.AddTodoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -27,10 +27,10 @@ public class HelpCommandParserTest {
     }
 
     @Test
-    public void parse_helpCommandPerson_success() {
-        CommandResult expectedCommandResult = new CommandResult(HelpCommandParser.MESSAGE_PERSON_COMMANDS, false,
+    public void parse_helpCommandContact_success() {
+        CommandResult expectedCommandResult = new CommandResult(HelpCommandParser.MESSAGE_CONTACT_COMMANDS, false,
             false);
-        assertCommandSuccess(parser.parse(PERSON_COMMAND_WORD), model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(parser.parse(CONTACT_COMMAND_WORD), model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -46,9 +46,9 @@ public class HelpCommandParserTest {
     }
 
     @Test
-    public void parse_helpCommandAddPerson_success() {
-        CommandResult expectedCommandResult = new CommandResult(AddPersonCommand.MESSAGE_USAGE, false, false);
-        assertCommandSuccess(parser.parse(PERSON_COMMAND_WORD + " " + AddPersonCommand.COMMAND_WORD), model,
+    public void parse_helpCommandAddContact_success() {
+        CommandResult expectedCommandResult = new CommandResult(AddContactCommand.MESSAGE_USAGE, false, false);
+        assertCommandSuccess(parser.parse(CONTACT_COMMAND_WORD + " " + AddContactCommand.COMMAND_WORD), model,
             expectedCommandResult, expectedModel);
     }
 
@@ -76,8 +76,8 @@ public class HelpCommandParserTest {
     @Test
     public void parse_helpCommandInvalidSubcommand_fallbackToFeatureHelp() {
         CommandResult expectedCommandResult = new CommandResult(
-            "Subcommand invalid not recognized.\n" + HelpCommandParser.MESSAGE_PERSON_COMMANDS, false, false);
-        assertCommandSuccess(parser.parse(PERSON_COMMAND_WORD + " invalid"), model, expectedCommandResult,
+            "Subcommand invalid not recognized.\n" + HelpCommandParser.MESSAGE_CONTACT_COMMANDS, false, false);
+        assertCommandSuccess(parser.parse(CONTACT_COMMAND_WORD + " invalid"), model, expectedCommandResult,
             expectedModel);
     }
 }

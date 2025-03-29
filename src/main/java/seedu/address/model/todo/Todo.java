@@ -8,9 +8,9 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Tag;
 import seedu.address.model.item.Item;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Tag;
 
 /**
  * Represents a Todo.
@@ -25,20 +25,20 @@ public class Todo implements Item {
     private final TodoDeadline deadline;
     private final TodoLocation location;
     private final TodoStatus status;
-    private final List<Person> persons;
+    private final List<Contact> contacts;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
     public Todo(TodoName name, TodoDeadline deadline, TodoLocation location, TodoStatus status,
-                List<Person> persons, Set<Tag> tags) {
+                List<Contact> contacts, Set<Tag> tags) {
         requireAllNonNull(name, deadline, status, location);
         this.name = name;
         this.deadline = deadline;
         this.location = location;
         this.status = status;
-        this.persons = persons.stream().toList();
+        this.contacts = contacts.stream().toList();
         this.tags.addAll(tags);
     }
 
@@ -51,7 +51,7 @@ public class Todo implements Item {
         this.deadline = deadline;
         this.location = location;
         this.status = new TodoStatus(false);
-        this.persons = List.of();
+        this.contacts = List.of();
     }
 
     public TodoName getName() {
@@ -70,8 +70,8 @@ public class Todo implements Item {
         return status;
     }
 
-    public List<Person> getPersons() {
-        return persons;
+    public List<Contact> getContacts() {
+        return contacts;
     }
 
     public Set<Tag> getTags() {
@@ -98,14 +98,14 @@ public class Todo implements Item {
                 && deadline.equals(otherTodo.deadline)
                 && location.equals(otherTodo.location)
                 && status.equals(otherTodo.status)
-                && persons.equals(otherTodo.persons)
+                && contacts.equals(otherTodo.contacts)
                 && tags.equals(otherTodo.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, deadline, location, status, persons);
+        return Objects.hash(name, deadline, location, status, contacts);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class Todo implements Item {
                 .add("deadline", deadline)
                 .add("location", location)
                 .add("status", status)
-                .add("persons", persons)
+                .add("contacts", contacts)
                 .add("tags", tags)
                 .toString();
     }
