@@ -233,7 +233,7 @@ with(this){return _c('p',[_c('strong',[_v("Target user profile")]),_v(":")])}
 with(this){return _c('ul',[_c('li',[_v("Tutors managing student information and course-related details\n"),_c('ul',[_c('li',[_v("Needs to track student attendance and student issues")]),_v(" "),_c('li',[_v("Needs to manage course related tasks")])])]),_v(" "),_c('li',[_v("Has a need to manage a significant number of contacts")]),_v(" "),_c('li',[_v("Prefers desktop apps over other types")]),_v(" "),_c('li',[_v("Can type fast")]),_v(" "),_c('li',[_v("Prefers typing to mouse interactions")]),_v(" "),_c('li',[_v("Is reasonably comfortable using CLI apps")])])}
 },function anonymous(
 ) {
-with(this){return _c('p',[_c('strong',[_v("Value proposition")]),_v(": manage contacts faster than a typical mouse/GUI driven app")])}
+with(this){return _c('p',[_c('strong',[_v("Value proposition")]),_v(": Tutors often teach multiple courses across different platforms. Without being a full-fledged learning management system, TutorConnect simplifies student management by providing an efficient central platform for storing and organizing student contacts, assigning tasks, and optimizing workflows with intuitive CLI options.")])}
 },function anonymous(
 ) {
 with(this){return _c('h3',{attrs:{"id":"user-stories"}},[_v("User stories"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#user-stories","onclick":"event.stopPropagation()"}})])}
@@ -815,6 +815,6 @@ with(this){return _c('h3',{attrs:{"id":"saving-data"}},[_v("Saving data"),_c('a'
 with(this){return _c('ol',[_c('li',[_c('p',[_v("Dealing with missing/corrupted data files")]),_v(" "),_c('ol',[_c('li',[_c('em',[_v("{explain how to simulate a missing/corrupted file, and the expected behavior}")])])])]),_v(" "),_c('li',[_c('p',[_c('em',[_v("{ more test cases …​ }")])])])])}
 },function anonymous(
 ) {
-with(this){return _c('footer',[_c('div',{staticClass:"text-center"},[_c('small',[_v("["),_c('span',[_c('strong',[_v("Powered by")])]),_v(" "),_c('img',{attrs:{"src":"https://markbind.org/favicon.ico","width":"30"}}),_v(" "),_c('a',{attrs:{"href":"https://markbind.org/"}},[_v("MarkBind 5.6.0")]),_v(", generated on Fri, 4 Apr 2025, 9:58:23 GMT+8]")])])])}
+with(this){return _c('footer',[_c('div',{staticClass:"text-center"},[_c('small',[_v("["),_c('span',[_c('strong',[_v("Powered by")])]),_v(" "),_c('img',{attrs:{"src":"https://markbind.org/favicon.ico","width":"30"}}),_v(" "),_c('a',{attrs:{"href":"https://markbind.org/"}},[_v("MarkBind 5.6.0")]),_v(", generated on Fri, 4 Apr 2025, 10:08:57 GMT+8]")])])])}
 }];
   

@@ -105,6 +105,7 @@
     },
     {
       "src": "UserGuide.md",
+      "title": "User Guide",
       "headings": {
         "tutorconnect-user-guide": "TutorConnect User Guide",
         "quick-start": "Quick start",
