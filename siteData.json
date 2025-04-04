@@ -126,7 +126,20 @@
         "archiving-data-files-coming-in-v2-0": "Archiving data files [coming in v2.0]",
         "faq": "FAQ",
         "known-issues": "Known issues",
-        "command-summary": "Command summary"
+        "command-summary": "Command summary",
+        "event-event": "Event: event",
+        "adding-an-event-add": "Adding an event: add",
+        "editing-an-event-edit": "Editing an event: edit",
+        "deleting-an-event-delete": "Deleting an event: delete",
+        "displaying-information-of-event-info": "Displaying information of event: info",
+        "clearing-event-list-clear": "Clearing event list: clear",
+        "linking-contacts-link": "Linking contacts: link",
+        "unlinking-contacts-unlink": "Unlinking contacts: unlink",
+        "tagging-an-event-tag": "Tagging an event: tag",
+        "untagging-an-event-untag": "Untagging an event: untag",
+        "logging-attendance-for-an-event-log": "Logging attendance for an event: log",
+        "removing-attendance-logs-from-an-event-unlog": "Removing attendance logs from an event: unlog",
+        "filtering-events-filter": "Filtering events: filter"
       },
       "headingKeywords": {}
     },
