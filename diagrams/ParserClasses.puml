@@ -20,7 +20,7 @@ Class PrefixAlias
 class Prefix
 }
 
-Class HiddenOutside #FFFFFF
+Cloud HiddenOutside #FFFFFF
 HiddenOutside ..> ParserImpl
 
 ParserImpl .down.> XYZCommandParser: <<create>>
