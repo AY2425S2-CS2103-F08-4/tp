@@ -63,7 +63,9 @@
         "appendix-instructions-for-manual-testing": "Appendix: Instructions for manual testing",
         "launch-and-shutdown": "Launch and shutdown",
         "deleting-a-contact": "Deleting a contact",
-        "saving-data": "Saving data"
+        "manual-modification-of-data": "Manual modification of data",
+        "appendix-planned-enhancements": "Appendix: Planned Enhancements",
+        "appendix-effort": "Appendix: Effort"
       },
       "headingKeywords": {}
     },
