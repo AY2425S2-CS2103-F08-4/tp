@@ -149,7 +149,8 @@
         "listing-all-subcommands-of-a-feature-help": "Listing all subcommands of a feature: help",
         "listing-help-message-of-a-subcommand-of-a-feature-help": "Listing help message of a subcommand of a feature: help",
         "exiting-the-program-exit-quit-kill-bye": "Exiting the program : exit/quit/kill/bye",
-        "quality-of-life": "Quality of Life:",
+        "quality-of-life": "Quality of Life",
+        "storage": "Storage",
         "faq": "FAQ",
         "known-issues": "Known issues"
       },
